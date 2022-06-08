@@ -31,4 +31,7 @@ public class PlayerEntity extends BaseEntity{
 
     @ManyToOne
     private UserEntity manager;
+
+
+
 }
