@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>FootballWorld</title>
+    <link rel="stylesheet" type="text/css" href="/css/main.css"/>
+</head>
+<body>
+    <div th:replace="fragments/navbar">Navbar</div>
+
+
+    <div class="container">
+        <form class="form" id="login">
+            <h1 class="form_title">Login</h1>
+            <div class="form_input-group">
+                <input type="text" class="form_input" autofocus placeholder="Email">
+            </div>
+            <div class="form_input-group">
+                <input type="password" class="form_input" autofocus placeholder="Password">
+            </div>
+            <button class="form__button" type="submit">Continue</button>
+            <p class="form_text">
+                <a href="#" class="form_link">Forgot your password?</a>
+            </p>
+            <p class="form_text">
+                <a class="form_link" href="/register" id="linkCreateAccount">Don't have an account? Create account</a>
+            </p>
+        </form>
+
+    </div>
+
+</body>
+</html>

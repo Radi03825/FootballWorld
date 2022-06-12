@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>FootballWorld</title>
+    <link rel="stylesheet" type="text/css" href="/css/main.css"/>
+</head>
+<body>
+
+<div th:replace="fragments/navbar">Navbar</div>
+
+<form class="form form--hidden" id="createAccount">
+    <h1 class="form_title">Create Account</h1>
+
+    <div class="form_input-group">
+        <input type="text" id="signupEmail" class="form_input" autofocus placeholder="Email">
+
+    </div>
+    <div class="form_input-group">
+        <input type="text" class="form_input" autofocus placeholder="Email Address">
+
+    </div>
+    <div class="form_input-group">
+        <input type="password" class="form_input" autofocus placeholder="Password">
+
+    </div>
+    <div class="form_input-group">
+        <input type="password" class="form_input" autofocus placeholder="Confirm password">
+
+    </div>
+    <button class="form_button" type="submit">Continue</button>
+    <p class="form_text">
+        <a class="form_link" href="/login" id="linkLogin">Already have an account? Sign in</a>
+    </p>
+</form>
+
+</body>
+</html>
