@@ -18,8 +18,8 @@ public class UserRegisterDTO {
     @Size(min = 5, max = 25)
     private String username;
 
-    @NotBlank
-    @Email
+    @NotBlank(message = "User email should be provided.")
+    @Email(message = "User email should be valid.")
     private String email;
 
     @NotBlank

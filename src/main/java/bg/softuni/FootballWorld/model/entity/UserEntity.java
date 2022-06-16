@@ -13,6 +13,9 @@ public class UserEntity extends BaseEntity {
     private String email;
 
     @Column(nullable = false)
+    private String username;
+
+    @Column(nullable = false)
     private String firstName;
 
     @Column(nullable = false)
@@ -33,6 +36,14 @@ public class UserEntity extends BaseEntity {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getFirstName() {
@@ -82,4 +93,5 @@ public class UserEntity extends BaseEntity {
     public void setUserRoles(List<UserRoleEntity> userRoles) {
         this.userRoles = userRoles;
     }
+
 }
