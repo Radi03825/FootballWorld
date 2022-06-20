@@ -8,6 +8,8 @@ import bg.softuni.FootballWorld.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import bg.softuni.FootballWorld.user.CurrentUser;
+
 
 import java.util.Optional;
 
@@ -15,12 +17,15 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
+    private CurrentUser currentUser;
     private ModelMapper modelMapper;
 
+
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper) {
+    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, CurrentUser currentUser) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
+        this.currentUser = currentUser;
     }
 
     @Override
@@ -35,6 +40,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void login(UserLoginDTO userLoginDTO) {
+
+        Optional<UserEntity> user = userRepository.findByEmailAndPassword(userLoginDTO.getEmail(), userLoginDTO.getPassword());
+
+        if (user.isPresent()) {
+            this.currentUser.login(user.get());
+        }
 
     }
 }

@@ -43,6 +43,9 @@ public class UserLoginController {
             return "redirect:/login";
         }
 
+        //TODO
+        //Check accounts
+
         this.userService.login(userLoginDTO);
 
         return "redirect:/";
