@@ -30,6 +30,7 @@ public class PlayerEntity extends BaseEntity{
     @Column(nullable = false)
     private BigDecimal price;
 
+    @Column(columnDefinition = "TEXT")
     private String description;
 
     private String imageUrl;
@@ -40,6 +41,9 @@ public class PlayerEntity extends BaseEntity{
 
     @Column(nullable = false)
     private Integer height;
+
+    @ManyToOne
+    private SkillsEntity skills;
 
     @OneToMany(targetEntity = CommentEntity.class, mappedBy = "player", cascade = CascadeType.ALL)
     private Set<CommentEntity> comments;
