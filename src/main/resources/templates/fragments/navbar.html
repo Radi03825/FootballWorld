@@ -1,16 +1,4 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <script src="https://kit.fontawesome.com/6e840af92f.js" crossorigin="anonymous"></script>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-
+<header>
 <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
         <a class="navbar-brand fs-4" href="/">Football<span>W<i class="fa-solid fa-futbol"></i>rld</span></a>
@@ -18,9 +6,27 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto fs-4">
+            <ul th:unless="${@currentUser.isLoggedIn()}" class="navbar-nav ms-auto fs-4">
                 <li class="nav-item">
                     <a class="nav-link" href="/"><i class="fa-solid fa-house"></i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">TRANSFER MARKET</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">TEAMS</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">SIGN IN</a>
+                </li>
+            </ul>
+
+            <ul th:if="${@currentUser.isLoggedIn()}" class="navbar-nav ms-auto fs-4">
+                <li class="nav-item">
+                    <a class="nav-link" href="/"><i class="fa-solid fa-house"></i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">CREATE PLAYERS</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">MY PLAYERS</a>
@@ -32,15 +38,11 @@
                     <a class="nav-link" href="#">TEAMS</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/login">SIGN IN</a>
+                    <a class="nav-link" href="/login">PROFILE</a>
                 </li>
 
             </ul>
         </div>
     </div>
 </nav>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-
-</body>
-</html>
+</header>
