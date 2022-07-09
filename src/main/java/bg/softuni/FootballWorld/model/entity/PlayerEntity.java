@@ -59,9 +59,123 @@ public class PlayerEntity extends BaseEntity{
     @ManyToOne
     private UserEntity manager;
 
+    public String getFirstName() {
+        return firstName;
+    }
 
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
+    public String getLastName() {
+        return lastName;
+    }
 
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
+    public PositionEnum getPosition() {
+        return position;
+    }
 
+    public void setPosition(PositionEnum position) {
+        this.position = position;
+    }
+
+    public LocalDate getBirthdate() {
+        return birthdate;
+    }
+
+    public void setBirthdate(LocalDate birthdate) {
+        this.birthdate = birthdate;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public PreferredFootEnum getPreferredFoot() {
+        return preferredFoot;
+    }
+
+    public void setPreferredFoot(PreferredFootEnum preferredFoot) {
+        this.preferredFoot = preferredFoot;
+    }
+
+    public Integer getHeight() {
+        return height;
+    }
+
+    public void setHeight(Integer height) {
+        this.height = height;
+    }
+
+    public SkillsEntity getSkills() {
+        return skills;
+    }
+
+    public void setSkills(SkillsEntity skills) {
+        this.skills = skills;
+    }
+
+    public Set<CommentEntity> getComments() {
+        return comments;
+    }
+
+    public void setComments(Set<CommentEntity> comments) {
+        this.comments = comments;
+    }
+
+    public LocalDateTime getCreated() {
+        return created;
+    }
+
+    public void setCreated(LocalDateTime created) {
+        this.created = created;
+    }
+
+    public LocalDateTime getModified() {
+        return modified;
+    }
+
+    public void setModified(LocalDateTime modified) {
+        this.modified = modified;
+    }
+
+    public TeamEntity getTeam() {
+        return team;
+    }
+
+    public void setTeam(TeamEntity team) {
+        this.team = team;
+    }
+
+    public UserEntity getManager() {
+        return manager;
+    }
+
+    public void setManager(UserEntity manager) {
+        this.manager = manager;
+    }
 }
