@@ -1,3 +1,6 @@
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <header>
 <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
@@ -6,7 +9,8 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul th:unless="${@currentUser.isLoggedIn()}" class="navbar-nav ms-auto fs-4">
+
+            <ul sec:authorize="!isAuthenticated()" class="navbar-nav ms-auto fs-4">
                 <li class="nav-item">
                     <a class="nav-link" href="/"><i class="fa-solid fa-house"></i></a>
                 </li>
@@ -17,32 +21,51 @@
                     <a class="nav-link" href="#">TEAMS</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/login">SIGN IN</a>
+                    <a class="nav-link" href="/users/login">SIGN IN</a>
                 </li>
             </ul>
 
-            <ul th:if="${@currentUser.isLoggedIn()}" class="navbar-nav ms-auto fs-4">
+            <ul sec:authorize="isAuthenticated()" class="navbar-nav ms-auto fs-4">
                 <li class="nav-item">
                     <a class="nav-link" href="/"><i class="fa-solid fa-house"></i></a>
                 </li>
+
+                <th:block sec:authorize="hasRole('ADMIN')">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">CREATE PLAYERS</a>
+                    <a class="nav-link" href="#">USERS</a>
                 </li>
+                </th:block>
+
+                <th:block sec:authorize="hasRole('MODERATOR')">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/players/create">CREATE PLAYER</a>
+                    </li>
+                </th:block>
+
                 <li class="nav-item">
                     <a class="nav-link" href="#">MY PLAYERS</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">TRANSFER MARKET</a>
                 </li>
+
+                <th:block sec:authorize="hasRole('ADMIN')">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/teams/create">CREATE TEAM</a>
+                    </li>
+                </th:block>
+
                 <li class="nav-item">
                     <a class="nav-link" href="#">TEAMS</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/login">PROFILE</a>
+                    <form th:action="@{/users/logout}" th:method="post">
+                        <input class="btn btn-link nav-link" type="submit" value="LOGOUT">
+                    </form>
                 </li>
-
             </ul>
         </div>
     </div>
 </nav>
 </header>
+</html>
