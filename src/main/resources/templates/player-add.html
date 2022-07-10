@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:include="fragments/head">Head</head>
+
+<body>
+
+    <div th:replace="fragments/navbar">Navbar</div>
+
+    <div class="container bg-dark">
+        <h2 class="text-center text-white">CREATE PLAYER</h2>
+        <form th:action="@{/players/create}"
+              th:method="post"
+              th:object="${playerCreateDTO}"
+                class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
+
+            <h4 class="text-white">Personal information:</h4>
+            <div class="row">
+
+                <div class="form-group col-md-6 mb-3">
+                    <label for="firstName" class="text-white font-weight-bold">First Name</label>
+                    <input th:field="*{firstName}"
+                            id="firstName" name="firstName" type="text" class="form-control"
+                           placeholder="First Name"/>
+
+                </div>
+                <div class="form-group col-md-6 mb-3">
+                    <label for="lastName" class="text-white font-weight-bold">Last Name</label>
+                    <input th:field="*{lastName}"
+                            id="lastName" type="text" class="form-control"
+                           placeholder="Last Name"/>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6 mb-3">
+                    <label for="birthdate" class="text-white font-weight-bold">Birthdate</label>
+                    <input  th:field="*{birthdate}"
+                            id="birthdate" type="date" class="form-control"
+                           placeholder="Birthdate"/>
+
+                </div>
+                <div class="form-group col-md-6 mb-3">
+                    <label for="team" class="text-white font-weight-bold">Team</label>
+                    <select th:field="*{team}" class="form-select" aria-label="Default select example">
+                        <option value="" selected>Team</option>
+                        <option th:each="t : ${teams}"
+                                th:text="${t.name}"
+                                th:value="${t.name}"
+                                th:selected="${t.id} == *{team}">One</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6 mb-3">
+                    <label for="height" class="text-white font-weight-bold">Height: </label>
+                    <span class="text-white ps-2 fw-bold fs-5 rangeValue" th:text="*{height} == null ? '180' : *{height}"></span>
+                    <span class="text-white">cm</span>
+                    <div class="range">
+                        <input th:field="*{height}" type="range" class="form-range" id="customRange1" min="150" max="210" value="180"/>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 mb-3">
+
+                    <label for="preferedFoot" class="text-white font-weight-bold">Prefered Foot</label>
+
+                    <div class="btn-group btn-group-lg" role="group" aria-label="Basic outlined example">
+                        <button type="button" class="btn btn-outline-primary">Left</button>
+                        <button type="button" class="btn btn-outline-primary">Right</button>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-6 mb-3">
+                    <label for="position" class="text-white font-weight-bold">Position</label>
+                    <select th:field="*{position}" class="form-select" aria-label="Default select example">
+                        <option value="" selected>Position</option>
+                        <option th:each="p : ${T(bg.softuni.FootballWorld.model.entity.enums.PositionEnum).values()}"
+                                th:text="${p}"
+                                th:value="${p}"
+                                th:selected="${p} == *{position}"> Position
+                        </option>
+                    </select>
+
+                </div>
+                <div class="form-group col-md-6 mb-3">
+                    <label for="price" class="text-white font-weight-bold">Transfer Price</label>
+                    <input id="price" th:field="*{price}" name="price" type="number" class="form-control"
+                           placeholder="Transfer Price"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="text-white font-weight-bold" for="imageUrl">Image URL</label>
+                <input th:field="*{imageUrl}" id="imageUrl" type="url" class="form-control"
+                       placeholder="Image URL">
+
+            </div>
+
+            <div class="form-group">
+                <label class="text-white font-weight-bold" for="description">Description</label>
+                <textarea th:field="*{description}" id="description" type="textarea" class="form-control" rows="3"
+                          placeholder="Description"></textarea>
+
+            </div>
+
+            <h4 class="text-white">Skills:</h4>
+
+            <div class="row">
+                <div class="form-group col-md-6 mb-3">
+                    <label for="pace" class="text-white font-weight-bold">Pace</label>
+                    <span class="text-white rangeValue" th:text="*{pace} == null ? '50' : *{pace}"></span>
+                    <div class="range">
+                        <input th:field="*{pace}" type="range" class="form-range" id="customRange1" />
+                    </div>
+                </div>
+                <div class="form-group col-md-6 mb-3">
+                    <label for="shoot" class="text-white font-weight-bold">Shoot</label>
+                    <span class="text-white rangeValue" th:text="*{shoot} == null ? '50' : *{shoot}">50</span>
+                    <div class="range">
+                        <input th:field="*{shoot}" type="range" class="form-range" id="customRange1" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-6 mb-3">
+                    <label for="pass" class="text-white font-weight-bold">Pass</label>
+                    <span class="text-white rangeValue" th:text="*{pass} == null ? '50' : *{pass}">50</span>
+                    <div class="range">
+                        <input th:field="*{pass}" type="range" class="form-range" id="customRange1" />
+                    </div>
+                </div>
+                <div class="form-group col-md-6 mb-3">
+                    <label for="year" class="text-white font-weight-bold">Defence</label>
+                    <span class="text-white rangeValue" th:text="*{defence} == null ? '50' : *{defence}">50</span>
+                    <div class="range">
+                        <input th:field="*{defence}" type="range" class="form-range" id="customRange1" min="0" max="100" value="50"/>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col col-md-4">
+                    <div class="button-holder d-flex">
+                        <input type="submit" class="btn btn-info btn-lg" value="CREATE"/>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script type="text/javascript">
+        let ranges = document.getElementsByClassName('form-range');
+
+        for(let range of ranges) {
+            range.addEventListener('change', rangeSlide)
+            range.addEventListener('mousemove', rangeSlide)
+        }
+
+        // onChange="rangeSlide(this.value)" onmousemove="rangeSlide(this.value)"
+
+        function rangeSlide(event) {
+            // let rangeValue = event.parentElement.parentElement.getElementsByClassName('rangeValue');
+            // rangeValue.innerHTML = value;
+            let span = event.target.parentElement.parentElement.getElementsByClassName('rangeValue')[0];
+            span.textContent = event.target.value;
+        }
+    </script>
+</body>
+</html>
