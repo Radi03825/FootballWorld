@@ -1,24 +1,43 @@
 package bg.softuni.FootballWorld.model.dto;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.validation.constraints.*;
 import java.math.BigInteger;
 import java.time.LocalDate;
 
 public class TeamCreateDTO {
 
+    @Size(min = 3, max = 25)
+    @NotBlank
     private String name;
 
+    @PastOrPresent
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull
     private LocalDate established;
 
+    @NotBlank
     private String badgeImageUrl;
 
+    @Size(min = 3, max = 30)
+    @NotBlank
     private String stadiumName;
 
+    @PastOrPresent
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull
     private LocalDate stadiumEstablished;
 
+    @Positive
+    @NotNull
     private BigInteger capacity;
 
+    @Size(min = 5, max = 30)
+    @NotBlank
     private String address;
 
+    @NotBlank
     private String stadiumImageUrl;
 
     public String getName() {
