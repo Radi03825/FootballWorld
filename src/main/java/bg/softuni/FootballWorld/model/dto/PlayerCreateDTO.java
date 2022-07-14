@@ -19,13 +19,13 @@ public class PlayerCreateDTO {
     @NotBlank
     private String lastName;
 
-    @PastOrPresent
+    @Past
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull
     private LocalDate birthdate;
 
-    @NotNull
-    private Long teamId;
+    @NotBlank
+    private String team;
 
     @Max(210)
     @Min(150)
@@ -42,7 +42,7 @@ public class PlayerCreateDTO {
     @NotNull
     private BigDecimal price;
 
-    @NotNull
+    @NotBlank
     private String imageUrl;
 
     @Size(min = 5)
@@ -93,12 +93,12 @@ public class PlayerCreateDTO {
         this.birthdate = birthdate;
     }
 
-    public Long getTeamId() {
-        return teamId;
+    public String getTeam() {
+        return team;
     }
 
-    public void setTeamId(Long teamId) {
-        this.teamId = teamId;
+    public void setTeam(String team) {
+        this.team = team;
     }
 
     public Integer getHeight() {

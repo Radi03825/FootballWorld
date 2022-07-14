@@ -2,7 +2,6 @@ package bg.softuni.FootballWorld.model.entity;
 
 import bg.softuni.FootballWorld.model.entity.enums.PositionEnum;
 import bg.softuni.FootballWorld.model.entity.enums.PreferredFootEnum;
-import com.sun.xml.bind.v2.TODO;
 
 import javax.persistence.*;
 import java.math.BigDecimal;

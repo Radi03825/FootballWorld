@@ -23,8 +23,6 @@ public class UserEntity extends BaseEntity {
 
     private String password;
 
-    private String imageUrl;
-
     private boolean isActive;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -68,14 +66,6 @@ public class UserEntity extends BaseEntity {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
     }
 
     public boolean isActive() {

@@ -1,21 +1,22 @@
 package bg.softuni.FootballWorld.model.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "teams")
 public class TeamEntity extends BaseEntity{
 
+    @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
     private LocalDate established;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private StadiumEntity stadium;
 
+    @Column(nullable = false)
     private String badgeImageUrl;
 
     public String getName() {

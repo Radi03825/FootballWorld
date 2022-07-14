@@ -1,5 +1,6 @@
 package bg.softuni.FootballWorld.model.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.math.BigInteger;
@@ -9,14 +10,19 @@ import java.time.LocalDate;
 @Table(name = "stadiums")
 public class StadiumEntity extends BaseEntity {
 
+    @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
     private BigInteger capacity;
 
+    @Column(nullable = false)
     private LocalDate established;
 
+    @Column(nullable = false)
     private String address;
 
+    @Column(nullable = false)
     private String imageUrl;
 
     public String getName() {
