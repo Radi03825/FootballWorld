@@ -23,16 +23,22 @@
                 <div class="form-group col-md-6 mb-3">
                     <label for="name" class="text-white font-weight-bold">Team Name</label>
                     <input  th:field="*{name}"
-                            id="name" type="number" min="0" step="100" class="form-control"
+                            th:errorclass="is-invalid"
+                            id="name" type="text" min="3" max="25" class="form-control"
                             placeholder="Team Name"/>
-
+                    <p class="invalid-feedback errors alert alert-danger">
+                        Team name is required and should be between 3 and 25 symbols.
+                    </p>
                 </div>
                 <div class="form-group col-md-6 mb-3">
                     <label for="established" class="text-white font-weight-bold">Established</label>
                     <input  th:field="*{established}"
+                            th:errorclass="is-invalid"
                             id="established" type="date" class="form-control"
                             placeholder="Established"/>
-
+                    <p class="invalid-feedback errors alert alert-danger">
+                        Established is required and should be in the past or in the present.
+                    </p>
                 </div>
             </div>
 
@@ -40,9 +46,12 @@
             <div class="form-group">
                 <label class="text-white font-weight-bold" for="badgeImageUrl">Badge Image URL</label>
                 <input  th:field="*{badgeImageUrl}"
+                        th:errorclass="is-invalid"
                         id="badgeImageUrl" type="url" class="form-control"
                         placeholder="Image URL">
-
+                <p class="invalid-feedback errors alert alert-danger">
+                    Badge Image Url is required.
+                </p>
             </div>
 
             <h4 class="text-white">Stadium:</h4>
@@ -51,16 +60,22 @@
                 <div class="form-group col-md-6 mb-3">
                     <label for="stadiumName" class="text-white font-weight-bold">Name</label>
                     <input  th:field="*{stadiumName}"
+                            th:errorclass="is-invalid"
                             id="stadiumName" type="text" class="form-control"
                             placeholder="Stadium Name"/>
-
+                    <p class="invalid-feedback errors alert alert-danger">
+                        Stadium name is required and should be between 3 and 25 symbols.
+                    </p>
                 </div>
                 <div class="form-group col-md-6 mb-3">
                     <label for="stadiumEstablished" class="text-white font-weight-bold">Established</label>
                     <input  th:field="*{stadiumEstablished}"
+                            th:errorclass="is-invalid"
                             id="stadiumEstablished" type="date" class="form-control"
                             placeholder="Established"/>
-
+                    <p class="invalid-feedback errors alert alert-danger">
+                        Established is required and should be in the past or in the present.
+                    </p>
                 </div>
             </div>
 
@@ -68,25 +83,35 @@
                 <div class="form-group col-md-6 mb-3">
                     <label for="capacity" class="text-white font-weight-bold">Capacity</label>
                     <input  th:field="*{capacity}"
-                            id="capacity" name="year" type="number" class="form-control"
+                            th:errorclass="is-invalid"
+                            id="capacity" type="number" class="form-control"
                             placeholder="Capacity"/>
+                    <p class="invalid-feedback errors alert alert-danger">
+                        Capacity is required and should be positive.
+                    </p>
                 </div>
 
                 <div class="form-group col-md-6 mb-3">
                     <label for="address" class="text-white font-weight-bold">Address</label>
                     <input  th:field="*{address}"
+                            th:errorclass="is-invalid"
                             id="address" type="text" class="form-control"
                             placeholder="Address"/>
-
+                    <p class="invalid-feedback errors alert alert-danger">
+                        Address is required and should be between 5 and 30 symbols.
+                    </p>
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="text-white font-weight-bold" for="stadiumImageUrl">Image URL</label>
                 <input  th:field="*{stadiumImageUrl}"
+                        th:errorclass="is-invalid"
                         id="stadiumImageUrl" type="url" class="form-control"
                         placeholder="Image URL">
-
+                <p class="invalid-feedback errors alert alert-danger">
+                    Image Url is required.
+                </p>
             </div>
 
             <div class="row">
