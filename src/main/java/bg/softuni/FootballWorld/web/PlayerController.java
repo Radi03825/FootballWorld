@@ -1,8 +1,11 @@
 package bg.softuni.FootballWorld.web;
 
 import bg.softuni.FootballWorld.model.dto.PlayerCreateDTO;
+import bg.softuni.FootballWorld.model.entity.PlayerEntity;
 import bg.softuni.FootballWorld.service.PlayerService;
 import bg.softuni.FootballWorld.service.TeamService;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/players")
@@ -40,7 +44,9 @@ public class PlayerController {
     }
 
     @PostMapping("/create")
-    public String createPlayer(@Valid PlayerCreateDTO playerCreateDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    public String createPlayer(@Valid PlayerCreateDTO playerCreateDTO, BindingResult bindingResult,
+                               RedirectAttributes redirectAttributes,
+                               @AuthenticationPrincipal UserDetails userDetails) {
 
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("playerCreateDTO", playerCreateDTO);
@@ -49,8 +55,16 @@ public class PlayerController {
             return "redirect:/players/create";
         }
 
-        this.playerService.createPlayer(playerCreateDTO);
+        this.playerService.createPlayer(playerCreateDTO, userDetails);
 
-        return "redirect:/";
+        return "redirect:/players/all";
+    }
+
+    @GetMapping("/all")
+    public String showAll(Model model) {
+        List<PlayerEntity> all = this.playerService.getAll();
+        model.addAttribute("players", all);
+
+        return "players";
     }
 }

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:include="fragments/head">Head</head>
+
+<body>
+    <div th:replace="fragments/navbar">Navbar</div>
+
+
+    <div class="container-fluid">
+        <h2 class="text-center text-dark mt-5">Transfer Market</h2>
+        <div class="offers row mx-auto d-flex flex-row justify-content-center">
+            <div th:each="p : ${players}" class="offer card col-sm-6 col-md-3  col-lg-2 m-1 p-0">
+                <div class="card-img-top-wrapper">
+                    <img class="card-img-top" th:src="${p.imageUrl}" alt="Player image">
+                </div>
+                <div class="card-body">
+                    <div class="card-body pb-1">
+                        <h5 class="card-title" th:text="|${p.firstName} ${p.lastName}|">Player Name</h5>
+                    </div>
+                    <ul class="offer-details list-group list-group-flush">
+                        <li class="list-group-item">
+                            <div class="card-text"><span th:text="|• Position: ${p.position}|">Position</span></div>
+                            <div class="card-text"><span>• Age: </span></div>
+                            <div class="card-text"><span th:text="|• Preferred Foot: ${p.preferredFoot}|">Preferred Foot</span></div>
+                            <div class="card-text"><span th:text="|• Price: ${p.price}|">Price</span></div>
+                        </li>
+                    </ul>
+                    <a class="card-link" href="/">Details</a>
+                    <a sec:authorize="isAuthenticated()" class="card-link" href="/">Buy</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h4 th:if="${players.size} == 0" class="text-center">None</h4>
+
+    <footer th:include="fragments/footer">Footer</footer>
+
+</body>
+</html>
