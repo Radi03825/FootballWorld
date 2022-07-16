@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:include="fragments/head">Head</head>
+
+<body>
+<div th:replace="fragments/navbar">Navbar</div>
+
+
+<div class="container-fluid">
+    <h2 class="text-center text-dark mt-5">Teams</h2>
+    <div class="offers row mx-auto d-flex flex-row justify-content-center">
+        <div th:each="t : ${teams}" class="offer card col-sm-6 col-md-3  col-lg-2 m-4 p-0">
+            <div class="card-img-top-wrapper">
+                <img class="card-img-top" th:src="${t.badgeImageUrl}" alt="Player image">
+            </div>
+            <div class="card-body">
+                <div class="card-body pb-1">
+                    <h5 class="card-title" th:text="${t.name}">Player Name</h5>
+                </div>
+                <ul class="offer-details list-group list-group-flush">
+                    <li class="list-group-item">
+                        <div class="card-text"><span th:text="|• Established: ${t.established}|">Established</span></div>
+                        <div class="card-text"><span th:text="|• Stadium: ${t.stadium.name}|" >Stadium</span></div>
+                    </li>
+                </ul>
+                <a class="btn btn-primary" role="button" data-bs-toggle="button" href="/">Details</a>
+                <a sec:authorize="hasRole('ADMIN')" class="btn btn-primary" role="button" data-bs-toggle="button" href="/">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h4 th:if="${teams.size} == 0" class="text-center">None</h4>
+
+<footer th:include="fragments/footer">Footer</footer>
+
+</body>
+</html>

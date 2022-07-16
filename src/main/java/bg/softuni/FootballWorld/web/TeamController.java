@@ -1,8 +1,11 @@
 package bg.softuni.FootballWorld.web;
 
 import bg.softuni.FootballWorld.model.dto.TeamCreateDTO;
+import bg.softuni.FootballWorld.model.entity.PlayerEntity;
+import bg.softuni.FootballWorld.model.entity.TeamEntity;
 import bg.softuni.FootballWorld.service.TeamService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/teams")
@@ -44,6 +48,17 @@ public class TeamController {
 
         this.teamService.create(teamCreateDTO);
 
-        return "redirect:/";
+        return "redirect:/teams/all";
     }
+
+    @GetMapping("/all")
+    public String showAll(Model model) {
+        List<TeamEntity> all = this.teamService.getAll();
+        model.addAttribute("teams", all);
+
+        return "teams";
+    }
+
+    //TODO - switch from entity to dto or view ...
+
 }
