@@ -10,6 +10,8 @@ import bg.softuni.FootballWorld.repository.SkillsRepository;
 import bg.softuni.FootballWorld.repository.TeamRepository;
 import bg.softuni.FootballWorld.repository.UserRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -57,7 +59,7 @@ public class PlayerService {
         this.playerRepository.save(player);
     }
 
-    public List<PlayerEntity> getAll() {
-        return this.playerRepository.findAll();
+    public Page<PlayerEntity> getAll(Pageable pageable) {
+        return this.playerRepository.findAll(pageable);
     }
 }

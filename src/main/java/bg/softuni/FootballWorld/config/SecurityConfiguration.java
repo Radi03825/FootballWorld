@@ -26,7 +26,7 @@ public class SecurityConfiguration {
         http.
                  authorizeRequests().
                  requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll().
-                 antMatchers("/", "/players/all").permitAll().
+                 antMatchers("/", "/players/all", "/teams/all").permitAll().
                  antMatchers( "/users/login", "/users/register").anonymous().
                  anyRequest().
                 authenticated().

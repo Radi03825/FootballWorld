@@ -33,7 +33,7 @@ public class TeamCreateDTO {
     @NotNull
     private BigInteger capacity;
 
-    @Size(min = 5, max = 30)
+    @Size(min = 5, max = 50)
     @NotBlank
     private String address;
 

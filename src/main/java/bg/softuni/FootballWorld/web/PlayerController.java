@@ -4,6 +4,8 @@ import bg.softuni.FootballWorld.model.dto.PlayerCreateDTO;
 import bg.softuni.FootballWorld.model.entity.PlayerEntity;
 import bg.softuni.FootballWorld.service.PlayerService;
 import bg.softuni.FootballWorld.service.TeamService;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -61,10 +63,11 @@ public class PlayerController {
     }
 
     @GetMapping("/all")
-    public String showAll(Model model) {
-        List<PlayerEntity> all = this.playerService.getAll();
-        model.addAttribute("players", all);
+    public String showAll(Model model, @PageableDefault(page = 0, size = 1) Pageable pageable) {
+        model.addAttribute("players", this.playerService.getAll(pageable));
 
         return "players";
     }
+
+    //TODO - switch from entity to dto or view ...
 }

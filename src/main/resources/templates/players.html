@@ -7,11 +7,82 @@
 <body>
     <div th:replace="fragments/navbar">Navbar</div>
 
+    <h1 class="text-center text-dark mt-5">Transfer Market</h1>
+
+    <div th:if="${players.isFirst()}" class="container-fluid">
+        <h2 class="text-center text-dark mt-5">Top 3 players</h2>
+        <div class="offers row mx-auto d-flex flex-row justify-content-center">
+            <div class="offer card col-sm-6 col-md-3  col-lg-2 m-1 p-0">
+                <div class="card-img-top-wrapper">
+                    <img class="card-img-top"alt="Player image">
+                </div>
+                <div class="card-body">
+                    <div class="card-body pb-1">
+                        <h5 class="card-title">Player Name</h5>
+                    </div>
+                    <ul class="offer-details list-group list-group-flush">
+                        <li class="list-group-item">
+                            <div class="card-text"><span>Position</span></div>
+                            <div class="card-text"><span>Age</span></div>
+                            <div class="card-text"><span>Preferred Foot</span></div>
+                            <div class="card-text"><span>Price</span></div>
+                        </li>
+                    </ul>
+                    <a class="btn btn-primary" role="button" data-bs-toggle="button" href="/">Details</a>
+                    <a sec:authorize="isAuthenticated()" class="btn btn-primary" role="button" data-bs-toggle="button" href="/">Buy</a>
+                    <a sec:authorize="hasRole('ADMIN')" class="btn btn-primary" role="button" data-bs-toggle="button" href="/">Delete</a>
+                </div>
+            </div>
+            <div class="offer card col-sm-6 col-md-3  col-lg-2 m-1 p-0">
+                <div class="card-img-top-wrapper">
+                    <img class="card-img-top" alt="Player image">
+                </div>
+                <div class="card-body">
+                    <div class="card-body pb-1">
+                        <h5 class="card-title">Player Name</h5>
+                    </div>
+                    <ul class="offer-details list-group list-group-flush">
+                        <li class="list-group-item">
+                            <div class="card-text"><span>Position</span></div>
+                            <div class="card-text"><span>• Age: </span></div>
+                            <div class="card-text"><span>Preferred Foot</span></div>
+                            <div class="card-text"><span>Price</span></div>
+                        </li>
+                    </ul>
+                    <a class="btn btn-primary" role="button" data-bs-toggle="button" href="/">Details</a>
+                    <a sec:authorize="isAuthenticated()" class="btn btn-primary" role="button" data-bs-toggle="button" href="/">Buy</a>
+                    <a sec:authorize="hasRole('ADMIN')" class="btn btn-primary" role="button" data-bs-toggle="button" href="/">Delete</a>
+                </div>
+            </div>
+            <div class="offer card col-sm-6 col-md-3  col-lg-2 m-1 p-0">
+                <div class="card-img-top-wrapper">
+                    <img class="card-img-top" alt="Player image">
+                </div>
+                <div class="card-body">
+                    <div class="card-body pb-1">
+                        <h5 class="card-title">Player Name</h5>
+                    </div>
+                    <ul class="offer-details list-group list-group-flush">
+                        <li class="list-group-item">
+                            <div class="card-text"><span>Position</span></div>
+                            <div class="card-text"><span>• Age: </span></div>
+                            <div class="card-text"><span>Preferred Foot</span></div>
+                            <div class="card-text"><span>Price</span></div>
+                        </li>
+                    </ul>
+                    <a class="btn btn-primary" role="button" data-bs-toggle="button" href="/">Details</a>
+                    <a sec:authorize="isAuthenticated()" class="btn btn-primary" role="button" data-bs-toggle="button" href="/">Buy</a>
+                    <a sec:authorize="hasRole('ADMIN')" class="btn btn-primary" role="button" data-bs-toggle="button" href="/">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <div class="container-fluid">
-        <h2 class="text-center text-dark mt-5">Transfer Market</h2>
+        <h2 th:if="${players.isFirst()}" class="text-center text-dark mt-5">All Players</h2>
         <div class="offers row mx-auto d-flex flex-row justify-content-center">
-            <div th:each="p : ${players}" class="offer card col-sm-6 col-md-3  col-lg-2 m-1 p-0">
+            <div th:each="p : ${players}" class="offer card col-sm-6 col-md-3  col-lg-2 m-4 p-0">
                 <div class="card-img-top-wrapper">
                     <img class="card-img-top" th:src="${p.imageUrl}" alt="Player image">
                 </div>
@@ -22,19 +93,53 @@
                     <ul class="offer-details list-group list-group-flush">
                         <li class="list-group-item">
                             <div class="card-text"><span th:text="|• Position: ${p.position}|">Position</span></div>
-                            <div class="card-text"><span>• Age: </span></div>
+                            <div class="card-text"><span th:text="|• Birthdate ${p.birthdate}|" >• Age: </span></div>
                             <div class="card-text"><span th:text="|• Preferred Foot: ${p.preferredFoot}|">Preferred Foot</span></div>
                             <div class="card-text"><span th:text="|• Price: ${p.price}|">Price</span></div>
                         </li>
                     </ul>
-                    <a class="card-link" href="/">Details</a>
-                    <a sec:authorize="isAuthenticated()" class="card-link" href="/">Buy</a>
+                    <a class="btn btn-primary" role="button" data-bs-toggle="button" href="/">Details</a>
+                    <a sec:authorize="isAuthenticated()" class="btn btn-primary" role="button" data-bs-toggle="button" href="/">Buy</a>
+                    <a sec:authorize="hasRole('ADMIN')" class="btn btn-primary" role="button" data-bs-toggle="button" href="/">Delete</a>
                 </div>
             </div>
         </div>
     </div>
 
     <h4 th:if="${players.size} == 0" class="text-center">None</h4>
+
+    <div class="container-fluid">
+            <ul class="pagination justify-content-center">
+                <li class="page-item" th:classappend="${players.isFirst()} ? 'disabled' : ''">
+                    <a th:unless="${players.isFirst()}"
+                       th:href="@{/players/all(size=${players.getSize()},page=0)}"
+                       class="page-link" href="#">First</a>
+                    <a th:if="${players.isFirst()}"
+                       class="page-link" href="#">First</a>
+                </li>
+                <li class="page-item" th:classappend="${players.hasPrevious() ? '' : 'disabled'}">
+                    <a th:if="${players.hasPrevious()}"
+                       th:href="@{/players/all(size=${players.getSize()},page=${players.getNumber() - 1})}"
+                       class="page-link" href="#">Previous</a>
+                    <a th:unless="${players.hasPrevious()}"
+                       class="page-link" href="#">Previous</a>
+                </li>
+                <li class="page-item" th:classappend="${players.hasNext() ? '' : 'disabled'}">
+                    <a th:if="${players.hasNext()}"
+                       th:href="@{/players/all(size=${players.getSize()},page=${players.getNumber() + 1})}"
+                       class="page-link" href="#">Next</a>
+                    <a th:unless="${players.hasNext()}"
+                       class="page-link" href="#">Next</a>
+                </li>
+                <li class="page-item" th:classappend="${players.isLast()} ? 'disabled' : ''">
+                    <a th:unless="${players.isLast()}"
+                       th:href="@{/players/all(size=${players.getSize()},page=${players.getTotalPages() - 1})}"
+                       class="page-link" href="#">Last</a>
+                    <a th:if="${players.isLast()}"
+                       class="page-link" href="#">Last</a>
+                </li>
+            </ul>
+    </div>
 
     <footer th:include="fragments/footer">Footer</footer>
 
