@@ -5,6 +5,8 @@ import bg.softuni.FootballWorld.model.entity.PlayerEntity;
 import bg.softuni.FootballWorld.model.entity.SkillsEntity;
 import bg.softuni.FootballWorld.model.entity.TeamEntity;
 import bg.softuni.FootballWorld.model.entity.UserEntity;
+import bg.softuni.FootballWorld.model.entity.enums.PositionEnum;
+import bg.softuni.FootballWorld.model.view.PlayerDetailsView;
 import bg.softuni.FootballWorld.repository.PlayerRepository;
 import bg.softuni.FootballWorld.repository.SkillsRepository;
 import bg.softuni.FootballWorld.repository.TeamRepository;
@@ -16,6 +18,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PlayerService {
@@ -61,5 +64,14 @@ public class PlayerService {
 
     public Page<PlayerEntity> getAll(Pageable pageable) {
         return this.playerRepository.findAll(pageable);
+    }
+
+    public List<PlayerEntity> getTop3ByPosition(PositionEnum position) {
+        return this.playerRepository.findByPosition(position);
+    }
+
+
+    public PlayerDetailsView getPlayer(Long id) {
+        return this.modelMapper.map(this.playerRepository.findById(id).get(), PlayerDetailsView.class);
     }
 }
