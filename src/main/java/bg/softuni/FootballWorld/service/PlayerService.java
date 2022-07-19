@@ -13,7 +13,9 @@ import bg.softuni.FootballWorld.repository.TeamRepository;
 import bg.softuni.FootballWorld.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -66,8 +68,8 @@ public class PlayerService {
         return this.playerRepository.findAll(pageable);
     }
 
-    public List<PlayerEntity> getTop3ByPosition(PositionEnum position) {
-        return this.playerRepository.findByPosition(position);
+    public Page<PlayerEntity> getTop3ByPosition(PositionEnum position) {
+        return this.playerRepository.findByPosition(position, PageRequest.of(0, 3));
     }
 
 

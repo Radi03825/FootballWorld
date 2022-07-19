@@ -5,6 +5,7 @@ import bg.softuni.FootballWorld.model.entity.enums.PositionEnum;
 import bg.softuni.FootballWorld.service.PlayerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +17,7 @@ public class PlayersSchedule {
 
     private Logger LOGGER = LoggerFactory.getLogger(PlayersSchedule.class);
 
-    private List<PlayerEntity> top3players;
+    private Page<PlayerEntity> top3players;
     private PositionEnum position;
 
     private final PlayerService playerService;
@@ -42,7 +43,7 @@ public class PlayersSchedule {
         return PositionEnum.values()[pick];
     }
 
-    public List<PlayerEntity> getTop3players() {
+    public Page<PlayerEntity> getTop3players() {
         return top3players;
     }
 
