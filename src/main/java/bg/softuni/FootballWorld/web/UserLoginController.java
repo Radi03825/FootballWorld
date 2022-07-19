@@ -1,53 +1,26 @@
 package bg.softuni.FootballWorld.web;
 
-import bg.softuni.FootballWorld.model.dto.UserLoginDTO;
-import bg.softuni.FootballWorld.service.impl.UserServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
 @Controller
+@RequestMapping("/users")
 public class UserLoginController {
-
-    private UserServiceImpl userService;
-
-    @Autowired
-    public UserLoginController(UserServiceImpl userService) {
-        this.userService = userService;
-    }
-
-    @ModelAttribute("userLoginDTO")
-    public UserLoginDTO init() {
-        return new UserLoginDTO();
-    }
 
     @GetMapping("/login")
     public String login() {
         return "login";
     }
 
-    @PostMapping("/login")
-    public String login(@Valid UserLoginDTO userLoginDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    @PostMapping("/login-error")
+    public String loginError(RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute("badCredentials", true);
 
-        if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("userLoginDTO", userLoginDTO);
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userLoginDTO",
-                    bindingResult);
-
-            return "redirect:/login";
-        }
-
-        //TODO
-        //Check accounts
-
-        this.userService.login(userLoginDTO);
-
-        return "redirect:/";
+        return "redirect:/users/login";
     }
 }

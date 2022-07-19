@@ -1,5 +1,7 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head th:include="fragments/head">Head</head>
 
@@ -19,29 +21,24 @@
                                 <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
                                 <p class="text-white-50 mb-5">Please enter your email and password!</p>
 
-                                <form th:action="@{/login}"
-                                      th:method="post"
-                                      th:object="${userLoginDTO}">
+                                <form th:action="@{/users/login}"
+                                      th:method="post">
 
                                     <div class="form-outline form-white mb-4">
                                         <label class="form-label text-start" for="typeEmailX">Email</label>
-                                        <input th:field="*{email}"
-                                               th:errorclass="is-invalid"
+                                        <input name="username"
                                                type="email" id="typeEmailX" class="form-control form-control-lg" placeholder="Email"/>
-                                        <p class="invalid-feedback errors alert alert-danger">
-                                            Invalid email.
-                                        </p>
                                     </div>
 
                                     <div class="form-outline form-white mb-4">
                                         <label class="form-label" for="typePasswordX">Password</label>
-                                        <input th:field="*{password}"
-                                               th:errorclass="is-invalid"
-                                               type="password" id="typePasswordX" class="form-control form-control-lg" placeholder="Password"/>
-                                        <p class="invalid-feedback errors alert alert-danger">
-                                            Invalid password.
-                                        </p>
+                                        <input name="password"
+                                               type="password" id="typePasswordX" class="form-control form-control-lg" min="5" placeholder="Password"/>
                                     </div>
+
+                                    <p th:if="${badCredentials}" class="errors alert alert-danger">
+                                        Invalid email or password.
+                                    </p>
 
                                     <button class="btn btn-outline-light btn-lg px-5 mb-5" type="submit">Login</button>
 
@@ -49,7 +46,7 @@
                             </form>
 
                             <div>
-                                <p class="mb-0">Don't have an account? <a href="/register" class="text-white-50 fw-bold">Sign Up</a>
+                                <p class="mb-0">Don't have an account? <a href="/users/register" class="text-white-50 fw-bold">Sign Up</a>
                                 </p>
                             </div>
 
