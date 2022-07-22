@@ -22,4 +22,44 @@ public class CommentEntity extends BaseEntity {
 
     @ManyToOne
     private PlayerEntity player;
+
+    public boolean isApproved() {
+        return approved;
+    }
+
+    public void setApproved(boolean approved) {
+        this.approved = approved;
+    }
+
+    public LocalDateTime getCreated() {
+        return created;
+    }
+
+    public void setCreated(LocalDateTime created) {
+        this.created = created;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public UserEntity getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(UserEntity author) {
+        this.author = author;
+    }
+
+    public PlayerEntity getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(PlayerEntity player) {
+        this.player = player;
+    }
 }
