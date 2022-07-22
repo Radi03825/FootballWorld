@@ -11,9 +11,9 @@ public class CommentView {
 
     private Long id;
 
-    private String text;
+    private String message;
 
-    private String authorUsername;
+    private String username;
 
     private LocalDateTime created;
 
@@ -25,20 +25,20 @@ public class CommentView {
         this.id = id;
     }
 
-    public String getText() {
-        return text;
+    public String getMessage() {
+        return message;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
-    public String getAuthorUsername() {
-        return authorUsername;
+    public String getUsername() {
+        return username;
     }
 
-    public void setAuthorUsername(String authorUsername) {
-        this.authorUsername = authorUsername;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public LocalDateTime getCreated() {

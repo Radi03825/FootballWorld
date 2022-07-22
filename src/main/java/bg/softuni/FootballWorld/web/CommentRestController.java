@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.List;
 
 @RestController
+@RequestMapping("/api")
 public class CommentRestController {
 
     private final CommentService commentService;
@@ -20,16 +22,23 @@ public class CommentRestController {
         this.commentService = commentService;
     }
 
-
-    @PostMapping(value = "/{playerId}/comments")
+    @PostMapping(value = "/{playerId}/comments", consumes = "application/json", produces = "application/json")
     public ResponseEntity<CommentView> createComment(@PathVariable("playerId") Long playerId,
                                                      @AuthenticationPrincipal UserDetails userDetails,
-                                                     @RequestBody @Valid CommentCreateDTO commentCreateDTO) {
+                                                     @RequestBody CommentCreateDTO commentCreateDTO) {
 
-        CommentView comment = commentService.createComment(commentCreateDTO, userDetails);
+        commentCreateDTO.setPlayer(playerId);
+        commentCreateDTO.setUsername(userDetails.getUsername());
+
+        CommentView comment = commentService.createComment(commentCreateDTO);
 
         return ResponseEntity
                 .created(URI.create(String.format("/api/%d/comments/%d", playerId, comment.getId())))
                 .body(comment);
+    }
+
+    @GetMapping("/{playerId}/comments")
+    public ResponseEntity<List<CommentView>> getComments(@PathVariable("playerId") Long playerId) {
+        return ResponseEntity.ok(commentService.getAllComments(playerId));
     }
 }

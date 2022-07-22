@@ -28,7 +28,7 @@ public class PlayersSchedule {
         this.position = PositionEnum.GOALKEEPER;
     }
 
-    @Scheduled(cron = "20 * * * * *")
+    @Scheduled(cron = "0 0/15 * * * *")
     public void setTop3players() {
         PositionEnum position = randomPosition();
         setPosition(position);
