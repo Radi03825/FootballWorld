@@ -15,7 +15,7 @@ public class CommentEntity extends BaseEntity {
     private LocalDateTime created;
 
     @Column(columnDefinition = "TEXT", nullable = false)
-    private String text;
+    private String message;
 
     @ManyToOne
     private UserEntity author;
@@ -39,12 +39,12 @@ public class CommentEntity extends BaseEntity {
         this.created = created;
     }
 
-    public String getText() {
-        return text;
+    public String getMessage() {
+        return message;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public UserEntity getAuthor() {

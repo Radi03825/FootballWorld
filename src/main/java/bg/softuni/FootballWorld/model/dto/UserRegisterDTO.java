@@ -1,9 +1,14 @@
 package bg.softuni.FootballWorld.model.dto;
 
+import bg.softuni.FootballWorld.model.validation.FieldMatch;
+import bg.softuni.FootballWorld.model.validation.UniqueUserEmail;
+import bg.softuni.FootballWorld.model.validation.UniqueUserUsername;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+@FieldMatch(first = "password", second = "confirmPassword")
 public class UserRegisterDTO {
 
     @NotBlank
@@ -14,12 +19,14 @@ public class UserRegisterDTO {
     @Size(min = 5, max = 25)
     private String lastName;
 
-    @NotBlank
-    @Size(min = 5, max = 25)
+    @NotBlank(message = "Username is required.")
+    @Size(min = 5, max = 25, message = "Username should be between 5 and 25 symbols.")
+    @UniqueUserUsername(message = "User username should be unique.")
     private String username;
 
-    @NotBlank(message = "User email should be provided.")
-    @Email(message = "User email should be valid.")
+    @NotBlank(message = "Email should be provided.")
+    @Email(message = "Email should be valid.")
+    @UniqueUserEmail(message = "Email should be unique.")
     private String email;
 
     @NotBlank

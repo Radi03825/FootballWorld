@@ -12,7 +12,7 @@
         <div class="mb-md-5 mt-md-4">
             <h2 class="text-center text-white mb-5">REGISTER USER</h2>
             <form
-                    th:action="@{/register}"
+                    th:action="@{/users/register}"
                     th:method="post"
                     th:object="${userRegisterDTO}"
                     class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
@@ -53,7 +53,9 @@
                                class="form-control"
                                placeholder="Username"/>
                         <div class="invalid-feedback errors alert alert-danger">
-                            Last name is required and should be between 5 and 25 symbols.
+                            <div  th:each="err : ${#fields.errors('username')}"
+                                  th:text="${err}">
+                            </div>
                         </div>
                     </div>
 
@@ -66,7 +68,9 @@
                                class="form-control"
                                placeholder="Email"/>
                         <div class="invalid-feedback errors alert alert-danger">
-
+                            <div  th:each="err : ${#fields.errors('email')}"
+                                  th:text="${err}">
+                            </div>
                         </div>
                     </div>
 
@@ -111,7 +115,7 @@
             </form>
 
             <div class="text-center text-white">
-                <p class="mb-0">Already have an account? <a href="/login" class="text-white-50 fw-bold">Sign In</a>
+                <p class="mb-0">Already have an account? <a href="/users/login" class="text-white-50 fw-bold">Sign In</a>
                 </p>
             </div>
 

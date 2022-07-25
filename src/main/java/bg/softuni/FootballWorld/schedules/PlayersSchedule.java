@@ -2,6 +2,7 @@ package bg.softuni.FootballWorld.schedules;
 
 import bg.softuni.FootballWorld.model.entity.PlayerEntity;
 import bg.softuni.FootballWorld.model.entity.enums.PositionEnum;
+import bg.softuni.FootballWorld.model.view.PlayerView;
 import bg.softuni.FootballWorld.service.PlayerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +18,7 @@ public class PlayersSchedule {
 
     private Logger LOGGER = LoggerFactory.getLogger(PlayersSchedule.class);
 
-    private Page<PlayerEntity> top3players;
+    private Page<PlayerView> top3players;
     private PositionEnum position;
 
     private final PlayerService playerService;
@@ -43,7 +44,7 @@ public class PlayersSchedule {
         return PositionEnum.values()[pick];
     }
 
-    public Page<PlayerEntity> getTop3players() {
+    public Page<PlayerView> getTop3players() {
         return top3players;
     }
 

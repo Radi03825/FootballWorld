@@ -41,7 +41,8 @@ public class PlayerEntity extends BaseEntity{
     @Column(nullable = false)
     private Integer height;
 
-    @ManyToOne
+    @OneToOne
+    @JoinColumn(name = "skills_id", referencedColumnName = "id")
     private SkillsEntity skills;
 
     @OneToMany(targetEntity = CommentEntity.class, mappedBy = "player", cascade = CascadeType.ALL)

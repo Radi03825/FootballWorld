@@ -2,6 +2,7 @@ package bg.softuni.FootballWorld.model.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -19,6 +20,9 @@ public class SkillsEntity extends BaseEntity{
 
     @Column(nullable = false)
     private Integer defending;
+
+    @OneToOne(mappedBy = "skills")
+    private PlayerEntity player;
 
     public Integer getPace() {
         return pace;
@@ -50,5 +54,13 @@ public class SkillsEntity extends BaseEntity{
 
     public void setDefending(Integer defending) {
         this.defending = defending;
+    }
+
+    public PlayerEntity getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(PlayerEntity player) {
+        this.player = player;
     }
 }
