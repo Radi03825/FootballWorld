@@ -1,31 +1,34 @@
 package bg.softuni.FootballWorld.model.dto;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.Size;
-
 public class CommentCreateDTO {
 
-    @Positive
-    private Long playerId;
+    private String username;
 
-    @Size(min = 5)
-    @NotBlank
-    private String text;
+    private Long player;
 
-    public Long getPlayerId() {
-        return playerId;
+    private String message;
+
+    public String getUsername() {
+        return username;
     }
 
-    public void setPlayerId(Long playerId) {
-        this.playerId = playerId;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getText() {
-        return text;
+    public Long getPlayer() {
+        return player;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setPlayer(Long playerId) {
+        this.player = playerId;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

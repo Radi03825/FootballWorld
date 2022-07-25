@@ -22,35 +22,47 @@
                 <div class="form-group col-md-6 mb-3">
                     <label for="firstName" class="text-white font-weight-bold">First Name</label>
                     <input th:field="*{firstName}"
+                           th:errorclass="is-invalid"
                             id="firstName" name="firstName" type="text" class="form-control"
                            placeholder="First Name"/>
-
+                    <p class="invalid-feedback errors alert alert-danger">
+                        First name is required and should be between 3 and 25 symbols.
+                    </p>
                 </div>
                 <div class="form-group col-md-6 mb-3">
                     <label class="text-white font-weight-bold">Last Name</label>
                     <input th:field="*{lastName}"
+                           th:errorclass="is-invalid"
                             id="lastName" type="text" class="form-control"
                            placeholder="Last Name"/>
-
+                    <p class="invalid-feedback errors alert alert-danger">
+                        Last name is required and should be between 3 and 25 symbols.
+                    </p>
                 </div>
             </div>
             <div class="row">
                 <div class="form-group col-md-6 mb-3">
                     <label class="text-white font-weight-bold">Birthdate</label>
                     <input  th:field="*{birthdate}"
+                            th:errorclass="is-invalid"
                             id="birthdate" type="date" class="form-control"
                            placeholder="Birthdate"/>
-
+                    <p class="invalid-feedback errors alert alert-danger">
+                        Birthdate is required and should be in the past.
+                    </p>
                 </div>
                 <div class="form-group col-md-6 mb-3">
                     <label class="text-white font-weight-bold">Team</label>
-                    <select th:field="*{team}" class="form-select" aria-label="Default select example">
+                    <select th:field="*{team}" th:errorclass="is-invalid" class="form-select" aria-label="Default select example">
                         <option value="" selected>Team</option>
                         <option th:each="t : ${teams}"
                                 th:text="${t.name}"
                                 th:value="${t.name}"
                                 th:selected="${t.name} == *{team}"></option>
                     </select>
+                    <p class="invalid-feedback errors alert alert-danger">
+                        Team is required.
+                    </p>
                 </div>
             </div>
             <div class="row">
@@ -59,14 +71,17 @@
                     <span class="text-white ps-2 fw-bold fs-5 rangeValue" th:text="*{height} == null ? '180' : *{height}"></span>
                     <span class="text-white">cm</span>
                     <div class="range">
-                        <input th:field="*{height}" type="range" class="form-range" id="customRange1" min="150" max="210" value="180"/>
+                        <input th:field="*{height}" th:errorclass="is-invalid" type="range" class="form-range" id="customRange1" min="150" max="210" value="180"/>
                     </div>
+                    <p class="invalid-feedback errors alert alert-danger">
+                        Height should be between 150 and 210.
+                    </p>
                 </div>
                 <div class="form-group col-md-6 mb-3">
 
                     <label for="preferedFoot" class="text-white font-weight-bold">Preferred Foot</label>
 
-                    <select th:field="*{preferredFoot}" class="form-select" aria-label="Default select example">
+                    <select th:field="*{preferredFoot}" th:errorclass="is-invalid" class="form-select" aria-label="Default select example">
                         <option value="" selected>Preferred Foot</option>
                         <option th:each="pf : ${T(bg.softuni.FootballWorld.model.entity.enums.PreferredFootEnum).values()}"
                                 th:text="${pf}"
@@ -74,13 +89,16 @@
                                 th:selected="${pf} == *{preferredFoot}"> Position
                         </option>
                     </select>
+                    <p class="invalid-feedback errors alert alert-danger">
+                        Preferred Foot is required.
+                    </p>
                 </div>
             </div>
 
             <div class="row">
                 <div class="form-group col-md-6 mb-3">
                     <label for="position" class="text-white font-weight-bold">Position</label>
-                    <select th:field="*{position}" class="form-select" aria-label="Default select example">
+                    <select th:field="*{position}" th:errorclass="is-invalid" class="form-select" aria-label="Default select example">
                         <option value="" selected>Position</option>
                         <option th:each="p : ${T(bg.softuni.FootballWorld.model.entity.enums.PositionEnum).values()}"
                                 th:text="${p}"
@@ -88,27 +106,36 @@
                                 th:selected="${p} == *{position}"> Position
                         </option>
                     </select>
-
+                    <p class="invalid-feedback errors alert alert-danger">
+                        Position is required.
+                    </p>
                 </div>
                 <div class="form-group col-md-6 mb-3">
                     <label for="price" class="text-white font-weight-bold">Transfer Price</label>
-                    <input id="price" th:field="*{price}" name="price" type="number" class="form-control"
+                    <input id="price" th:field="*{price}" th:errorclass="is-invalid" name="price" type="number" class="form-control"
                            placeholder="Transfer Price"/>
+                    <p class="invalid-feedback errors alert alert-danger">
+                        Transfer price is required and should be positive.
+                    </p>
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="text-white font-weight-bold" for="imageUrl">Image URL</label>
-                <input th:field="*{imageUrl}" id="imageUrl" type="url" class="form-control"
+                <input th:field="*{imageUrl}" th:errorclass="is-invalid" id="imageUrl" type="url" class="form-control"
                        placeholder="Image URL">
-
+                <p class="invalid-feedback errors alert alert-danger">
+                    Image Url is required.
+                </p>
             </div>
 
             <div class="form-group">
                 <label class="text-white font-weight-bold" for="description">Description</label>
-                <textarea th:field="*{description}" id="description" type="textarea" class="form-control" rows="3"
+                <textarea th:field="*{description}" th:errorclass="is-invalid" id="description" type="textarea" class="form-control" rows="3"
                           placeholder="Description"></textarea>
-
+                <p class="invalid-feedback errors alert alert-danger">
+                    Description is required and should be at least 5 symbols.
+                </p>
             </div>
 
             <h4 class="text-white">Skills:</h4>
@@ -118,15 +145,21 @@
                     <label for="pace" class="text-white font-weight-bold">Pace</label>
                     <span class="text-white rangeValue" th:text="*{pace} == null ? '50' : *{pace}"></span>
                     <div class="range">
-                        <input th:field="*{pace}" type="range" class="form-range" id="customRange1" />
+                        <input th:field="*{pace}" th:errorclass="is-invalid" type="range" class="form-range" id="customRange1" />
                     </div>
+                    <p class="invalid-feedback errors alert alert-danger">
+                        Pace should be between 0 and 100 symbols.
+                    </p>
                 </div>
                 <div class="form-group col-md-6 mb-3">
                     <label for="shoot" class="text-white font-weight-bold">Shoot</label>
                     <span class="text-white rangeValue" th:text="*{shoot} == null ? '50' : *{shoot}">50</span>
                     <div class="range">
-                        <input th:field="*{shoot}" type="range" class="form-range" id="customRange1" />
+                        <input th:field="*{shoot}" th:errorclass="is-invalid" type="range" class="form-range" id="customRange1" />
                     </div>
+                    <p class="invalid-feedback errors alert alert-danger">
+                        Shoot should be between 0 and 100 symbols.
+                    </p>
                 </div>
             </div>
 
@@ -135,15 +168,21 @@
                     <label for="pass" class="text-white font-weight-bold">Pass</label>
                     <span class="text-white rangeValue" th:text="*{pass} == null ? '50' : *{pass}">50</span>
                     <div class="range">
-                        <input th:field="*{pass}" type="range" class="form-range" id="customRange1" />
+                        <input th:field="*{pass}" th:errorclass="is-invalid" type="range" class="form-range" id="customRange1" />
                     </div>
+                    <p class="invalid-feedback errors alert alert-danger">
+                        Pass should be between 0 and 100 symbols.
+                    </p>
                 </div>
                 <div class="form-group col-md-6 mb-3">
                     <label for="year" class="text-white font-weight-bold">Defence</label>
                     <span class="text-white rangeValue" th:text="*{defence} == null ? '50' : *{defence}">50</span>
                     <div class="range">
-                        <input th:field="*{defence}" type="range" class="form-range" id="customRange1" min="0" max="100" value="50"/>
+                        <input th:field="*{defence}" th:errorclass="is-invalid" type="range" class="form-range" id="customRange1" min="0" max="100" value="50"/>
                     </div>
+                    <p class="invalid-feedback errors alert alert-danger">
+                        Defence should be between 0 and 100 symbols.
+                    </p>
                 </div>
             </div>
 
@@ -157,22 +196,10 @@
             </div>
         </form>
     </div>
-    <script type="text/javascript">
-        let ranges = document.getElementsByClassName('form-range');
 
-        for(let range of ranges) {
-            range.addEventListener('change', rangeSlide)
-            range.addEventListener('mousemove', rangeSlide)
-        }
+    <footer th:include="fragments/footer">Footer</footer>
 
-        // onChange="rangeSlide(this.value)" onmousemove="rangeSlide(this.value)"
+    <script src="/js/player-add.js"></script>
 
-        function rangeSlide(event) {
-            // let rangeValue = event.parentElement.parentElement.getElementsByClassName('rangeValue');
-            // rangeValue.innerHTML = value;
-            let span = event.target.parentElement.parentElement.getElementsByClassName('rangeValue')[0];
-            span.textContent = event.target.value;
-        }
-    </script>
 </body>
 </html>

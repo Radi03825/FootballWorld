@@ -3,14 +3,20 @@ package bg.softuni.FootballWorld.service;
 import bg.softuni.FootballWorld.model.dto.TeamCreateDTO;
 import bg.softuni.FootballWorld.model.entity.StadiumEntity;
 import bg.softuni.FootballWorld.model.entity.TeamEntity;
+import bg.softuni.FootballWorld.model.view.TeamDetailsView;
+import bg.softuni.FootballWorld.model.view.TeamView;
 import bg.softuni.FootballWorld.repository.StadiumRepository;
 import bg.softuni.FootballWorld.repository.TeamRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class TeamService {
@@ -54,7 +60,27 @@ public class TeamService {
         //Can choose one stadium or build new
     }
 
-    public List<TeamEntity> getAllTeamsOrderAlphabetical() {
-        return this.teamRepository.findAll();
+    public List<TeamView> getAllTeamsOrderAlphabetical() {
+        return this.teamRepository.findAllByOrderByName().stream()
+                .map(this::mapTeam).collect(Collectors.toList());
+    }
+
+    public Page<TeamView> getAll(Pageable pageable) {
+
+        List<TeamView> all = this.teamRepository.findAll(pageable).stream()
+                .map(this::mapTeam).collect(Collectors.toList());
+
+        return new PageImpl<>(all);
+    }
+
+    private TeamView mapTeam(TeamEntity t) {
+        TeamView teamView = this.modelMapper.map(t, TeamView.class);
+        teamView.setStadium(t.getStadium().getName());
+        return teamView;
+    }
+
+    public TeamDetailsView getTeamDetails(Long id) {
+        Optional<TeamEntity> team = this.teamRepository.findById(id);
+        return this.modelMapper.map(team.get(), TeamDetailsView.class);
     }
 }

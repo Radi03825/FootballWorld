@@ -10,7 +10,7 @@ import java.util.Optional;
 @Repository
 public interface TeamRepository extends JpaRepository<TeamEntity, Long> {
 
-    List<TeamEntity> findAll();
+    List<TeamEntity> findAllByOrderByName();
 
     Optional<TeamEntity> findByName(String name);
 }

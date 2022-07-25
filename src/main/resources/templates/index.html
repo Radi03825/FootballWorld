@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+                xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head th:include="fragments/head">Head</head>
 
@@ -7,15 +8,24 @@
 
 <div th:replace="fragments/navbar">Navbar</div>
 
+<h1 sec:authorize="isAuthenticated()" class="text-center">
+<span th:text="${#authentication.principal.fullName}"></span>, welcome to FootballWorld!
+</h1>
 
-<section class="site-header">
-    <h1 th:if="${@currentUser.isLoggedIn()}"><span th:text="${@currentUser.getUsername()}"></span>, welcome to FootballWorld!</h1>
+<div class="jumbotron p-3 p-md-5 m-5 text-white rounded bg-dark">
+    <div class="row">
+        <div class="col">
+            <h1 class="display-4 font-italic">FootballWorld</h1>
+            <p class="lead my-3 d-inline">Multiple lines of text that form the lede, informing new readers quickly and efficiently about what's most interesting in this post's contents.</p>
+        </div>
+        <img class="col-auto" src="/images/football_main.jpg" height="400px" width="300px">
+    </div>
 
-    <h1>FootballWorld</h1>
-    <h3>Some text about FootballWorld.</h3>
-    <button>LEARN MORE</button>
+    <a href="#" class="text-white font-weight-bold btn">About us</a>
+    <a href="/contacts" class="text-white font-weight-bold btn">Contacts</a>
+</div>
 
-</section>
+
 
 <footer th:include="fragments/footer">Footer</footer>
 

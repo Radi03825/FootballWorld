@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:include="fragments/head">Head</head>
+
+<body>
+
+<div th:replace="fragments/navbar">Navbar</div>
+
+<div th:object="${team}">
+<div class="jumbotron p-3 p-md-5 m-5 text-white rounded bg-dark">
+    <div class="row">
+        <h3>Team:</h3>
+        <div class="col">
+            <p th:text="|• Name: *{name}|">Name</p>
+            <p th:text="|• Established: *{established}|">Established</p>
+        </div>
+        <img class="col-auto" th:src="*{badgeImageUrl}" height="400px" width="300px">
+    </div>
+
+</div>
+
+<div class="jumbotron p-3 p-md-5 m-5 text-white rounded bg-dark">
+    <div class="row">
+        <h3>Stadium:</h3>
+        <div class="col">
+            <p th:text="|• Name: *{stadium.name}|">Name</p>
+            <p th:text="|• Established: *{stadium.established}|">Established</p>
+            <p th:text="|• Capacity: *{stadium.capacity}|">Capacity</p>
+            <p th:text="|• Address: *{stadium.address}|">Address</p>
+        </div>
+        <img class="col-auto" th:src="*{stadium.imageUrl}" height="400px" width="300px">
+    </div>
+
+</div>
+</div>
+
+<footer th:include="fragments/footer">Footer</footer>
+
+</body>
+</html>

@@ -32,38 +32,21 @@ public class UserService {
 
         Optional<UserEntity> byEmail = this.userRepository.findByEmail(userRegisterDTO.getEmail());
 
-        UserEntity user = this.modelMapper.map(userRegisterDTO, UserEntity.class);
+        if (byEmail.isEmpty()) {
 
-        this.userRepository.save(user);
-    }
+            UserEntity user = this.modelMapper.map(userRegisterDTO, UserEntity.class);
 
-    public void init() {
-        if (userRepository.count() == 0 && userRoleRepository.count() == 0) {
-            UserRoleEntity adminRole = new UserRoleEntity();
-            adminRole.setUserRole(UserRoleEnum.ADMIN);
-            UserRoleEntity moderatorRole = new UserRoleEntity();
-            moderatorRole.setUserRole(UserRoleEnum.MODERATOR);
-            UserRoleEntity userRole = new UserRoleEntity();
-            userRole.setUserRole(UserRoleEnum.USER);
+            user.setPassword(this.passwordEncoder.encode(userRegisterDTO.getPassword()));
 
+            Optional<UserRoleEntity> userRole = this.userRoleRepository.findByUserRole(UserRoleEnum.USER);
 
-            adminRole = this.userRoleRepository.save(adminRole);
-            moderatorRole = this.userRoleRepository.save(moderatorRole);
-            userRole = this.userRoleRepository.save(userRole);
+            user.setUserRoles(List.of(userRole.get()));
 
-            initAdmin(List.of(adminRole, moderatorRole, userRole));
+            this.userRepository.save(user);
         }
     }
 
-    private void initAdmin(List<UserRoleEntity> roles) {
-        UserEntity admin = new UserEntity();
-        admin.setUserRoles(roles);
-        admin.setFirstName("Admin");
-        admin.setLastName("Adminov");
-        admin.setUsername("Admin");
-        admin.setEmail("admin@admin.com");
-        admin.setPassword(this.passwordEncoder.encode("123456"));
-
-        userRepository.save(admin);
+    public List<UserEntity> getAll() {
+        return this.userRepository.findAll();
     }
 }

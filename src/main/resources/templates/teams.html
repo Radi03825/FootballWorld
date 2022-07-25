@@ -9,7 +9,7 @@
 
 
 <div class="container-fluid">
-    <h2 class="text-center text-dark mt-5">Teams</h2>
+    <h1 class="text-center text-dark mt-5">Teams</h1>
     <div class="offers row mx-auto d-flex flex-row justify-content-center">
         <div th:each="t : ${teams}" class="offer card col-sm-6 col-md-3  col-lg-2 m-4 p-0">
             <div class="card-img-top-wrapper">
@@ -21,11 +21,10 @@
                 </div>
                 <ul class="offer-details list-group list-group-flush">
                     <li class="list-group-item">
-                        <div class="card-text"><span th:text="|• Established: ${t.established}|">Established</span></div>
-                        <div class="card-text"><span th:text="|• Stadium: ${t.stadium.name}|" >Stadium</span></div>
+                        <div class="card-text"><span th:text="|• Stadium: ${t.stadium}|" >Stadium</span></div>
                     </li>
                 </ul>
-                <a class="btn btn-primary" role="button" data-bs-toggle="button" href="/">Details</a>
+                <a class="btn btn-primary" role="button" th:href="@{/teams/{teamId}/details(teamId=*{t.id})}">Details</a>
                 <a sec:authorize="hasRole('ADMIN')" class="btn btn-primary" role="button" data-bs-toggle="button" href="/">Delete</a>
             </div>
         </div>
@@ -33,6 +32,39 @@
 </div>
 
 <h4 th:if="${teams.size} == 0" class="text-center">None</h4>
+
+<div class="container-fluid">
+    <ul class="pagination justify-content-center">
+        <li class="page-item" th:classappend="${teams.isFirst()} ? 'disabled' : ''">
+            <a th:unless="${teams.isFirst()}"
+               th:href="@{/teams/all(size=${teams.getSize()},page=0)}"
+               class="page-link" href="#">First</a>
+            <a th:if="${teams.isFirst()}"
+               class="page-link" href="#">First</a>
+        </li>
+        <li class="page-item" th:classappend="${teams.hasPrevious() ? '' : 'disabled'}">
+            <a th:if="${teams.hasPrevious()}"
+               th:href="@{/teams/all(size=${teams.getSize()},page=${teams.getNumber() - 1})}"
+               class="page-link" href="#">Previous</a>
+            <a th:unless="${teams.hasPrevious()}"
+               class="page-link" href="#">Previous</a>
+        </li>
+        <li class="page-item" th:classappend="${teams.hasNext() ? '' : 'disabled'}">
+            <a th:if="${teams.hasNext()}"
+               th:href="@{/teams/all(size=${teams.getSize()},page=${teams.getNumber() + 1})}"
+               class="page-link" href="#">Next</a>
+            <a th:unless="${teams.hasNext()}"
+               class="page-link" href="#">Next</a>
+        </li>
+        <li class="page-item" th:classappend="${teams.isLast()} ? 'disabled' : ''">
+            <a th:unless="${teams.isLast()}"
+               th:href="@{/teams/all(size=${teams.getSize()},page=${teams.getTotalPages() - 1})}"
+               class="page-link" href="#">Last</a>
+            <a th:if="${teams.isLast()}"
+               class="page-link" href="#">Last</a>
+        </li>
+    </ul>
+</div>
 
 <footer th:include="fragments/footer">Footer</footer>
 

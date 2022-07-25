@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:include="fragments/head">Head</head>
+
+<body>
+
+<div th:replace="fragments/navbar">Navbar</div>
+
+<h1 class="text-center text-dark">Contact Us</h1>
+<h4 class="text-center text-dark">Do you have any questions? Please do not hesitate to contact us directly. Our team will help you.</h4>
+
+<div class="container-fluid p-3">
+    <div class="row">
+        <div class="col-auto">
+            <p class="lead my-3"><i class="fa-solid fa-location-dot"></i>&nbsp;Address: 59 G.M. Dimitrov Blvd, 1700 Sofia, Bulgaria</p>
+            <p class="lead my-3"><i class="fa-solid fa-phone"></i>&nbsp;Telephone: 02/ 930 7 977</p>
+            <p class="lead my-3"><i class="fa-solid fa-mobile-screen-button"></i>&nbsp;Phone: +359 87 764 8575</p>
+            <p class="lead my-3"><i class="fa-solid fa-envelope"></i>&nbsp;Email: office@footballWorld.com</p>
+            <ul class="social-media">
+                <li><a href="https://www.facebook.com/"><i class="fa-brands fa-facebook"></i></a></li>
+                <li><a href="https://www.instagram.com/"><i class="fa-brands fa-instagram"></i></a></li>
+                <li><a href="https://twitter.com/?lang=bg"><i class="fa-brands fa-twitter"></i></a></li>
+            </ul>
+        </div>
+        <iframe class="col me-3" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1424.9702012124844!2d23.353009942764906!3d42.66163295146261!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40aa8596c7a35f53%3A0xc40ac6ada8946ab!2sNV%20Tower!5e1!3m2!1sbg!2sbg!4v1658044280516!5m2!1sbg!2sbg"
+                width="650" height="450" style="border:0;" referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+    </div>
+</div>
+
+<footer th:include="fragments/footer">Footer</footer>
+
+</body>
+</html>

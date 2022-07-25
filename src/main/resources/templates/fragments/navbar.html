@@ -8,6 +8,16 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+        <div sec:authorize="hasRole('ADMIN')" class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button"
+                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Admin Panel
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="/users/all">USERS</a>
+                <a class="dropdown-item" href="/teams/create">CREATE TEAM</a>
+            </div>
+        </div>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
             <ul sec:authorize="!isAuthenticated()" class="navbar-nav ms-auto fs-4">
@@ -30,12 +40,6 @@
                     <a class="nav-link" href="/"><i class="fa-solid fa-house"></i></a>
                 </li>
 
-                <th:block sec:authorize="hasRole('ADMIN')">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">USERS</a>
-                </li>
-                </th:block>
-
                 <th:block sec:authorize="hasRole('MODERATOR')">
                     <li class="nav-item">
                         <a class="nav-link" href="/players/create">CREATE PLAYER</a>
@@ -43,18 +47,11 @@
                 </th:block>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#">MY PLAYERS</a>
+                    <a class="nav-link" href="/players/my">MY PLAYERS</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/players/all">TRANSFER MARKET</a>
                 </li>
-
-                <th:block sec:authorize="hasRole('ADMIN')">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/teams/create">CREATE TEAM</a>
-                    </li>
-                </th:block>
-
                 <li class="nav-item">
                     <a class="nav-link" href="/teams/all">TEAMS</a>
                 </li>
