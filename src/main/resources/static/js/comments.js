@@ -13,25 +13,31 @@ async function handleFormSubmission(event) {
 
     const messageVal = document.getElementById('message').value
 
-    fetch(`http://localhost:8080/api/${playerId}/comments`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            [csrfHeaderName]: csrfHeaderValue
-        },
-        body: JSON.stringify({
-            message: messageVal
-        })
-    }).then(res => res.json())
-        .then(data => {
-            document.getElementById('message').value = ""
-            commentContainer.innerHTML += commentAsHtml(data)
-        })
+    if (messageVal.trim() !== '') {
+
+        fetch(`http://localhost:8080/api/${playerId}/comments`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                [csrfHeaderName]: csrfHeaderValue
+            },
+            body: JSON.stringify({
+                message: messageVal
+            })
+        }).then(res => res.json())
+            .then(data => {
+                document.getElementById('message').value = ""
+                commentContainer.innerHTML += commentAsHtml(data)
+            })
+    } else {
+        alert("Comment should not be empty!")
+    }
 }
 
 function commentAsHtml(comment) {
-    let commentHtml = '<div>\n'
+    let commentHtml = '<hr>\n'
+    commentHtml += '<div>\n'
     commentHtml += `<h4>${comment.username}</h4>\n`
     commentHtml += `<p>${comment.message}</p>\n`
     commentHtml += '</div>\n'

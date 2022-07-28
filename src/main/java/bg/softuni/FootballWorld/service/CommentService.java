@@ -7,6 +7,7 @@ import bg.softuni.FootballWorld.model.view.CommentView;
 import bg.softuni.FootballWorld.repository.CommentRepository;
 import bg.softuni.FootballWorld.repository.PlayerRepository;
 import bg.softuni.FootballWorld.repository.UserRepository;
+import bg.softuni.FootballWorld.service.exceptions.ObjectNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -53,6 +54,8 @@ public class CommentService {
     public List<CommentView> getAllComments(Long playerId) {
 
         Optional<PlayerEntity> player = this.playerRepository.findById(playerId);
+
+
 
         List<CommentEntity> comments = this.commentRepository.findAllByPlayer(player.get());
 

@@ -4,6 +4,7 @@ import bg.softuni.FootballWorld.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -35,5 +36,15 @@ public class UserController {
         model.addAttribute("users", this.userService.getAll());
 
         return "users";
+    }
+
+    @GetMapping("/{id}/upgrade")
+    public String upgrade(@PathVariable Long id) {
+
+        this.userService.upgrade(id);
+
+        System.out.println("I am here: " + id);
+
+        return "redirect:/users/all";
     }
 }

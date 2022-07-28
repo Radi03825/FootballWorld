@@ -10,4 +10,9 @@ public class InfoController {
     public String contacts() {
         return "contact";
     }
+
+    @GetMapping("/about")
+    public String about() {
+        return "about";
+    }
 }

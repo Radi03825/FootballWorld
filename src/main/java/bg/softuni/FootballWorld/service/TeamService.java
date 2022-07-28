@@ -7,6 +7,7 @@ import bg.softuni.FootballWorld.model.view.TeamDetailsView;
 import bg.softuni.FootballWorld.model.view.TeamView;
 import bg.softuni.FootballWorld.repository.StadiumRepository;
 import bg.softuni.FootballWorld.repository.TeamRepository;
+import bg.softuni.FootballWorld.service.exceptions.ObjectNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -81,6 +82,11 @@ public class TeamService {
 
     public TeamDetailsView getTeamDetails(Long id) {
         Optional<TeamEntity> team = this.teamRepository.findById(id);
+
+        if (team.isEmpty()) {
+            throw new ObjectNotFoundException("Team not found!");
+        }
+
         return this.modelMapper.map(team.get(), TeamDetailsView.class);
     }
 }

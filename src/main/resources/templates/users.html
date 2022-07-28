@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+    <head th:include="fragments/head">Head</head>
+
+<body>
+    <div th:replace="fragments/navbar">Navbar</div>
+
+
+
+    <div class="container-fluid">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">№</th>
+                <th scope="col">Full Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Username</th>
+                <th scope="col">Role</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="" th:each="u : ${users}" th:classappend="${u.role} == 'ADMIN' ? 'bg-warning' : ''">
+                <th scope="row" th:text="${u.id}"></th>
+                <td th:text="|${u.firstName} ${u.lastName}|"></td>
+                <td th:text="${u.email}"></td>
+                <td th:text="${u.username}"></td>
+                <td th:if="${u.role} == 'USER'">USER <a th:href="@{/users/{userId}/upgrade(userId=${u.id})}" title="Make moderator"><i class="fa-solid fa-circle-arrow-up"></i></a></td>
+                <td th:unless="${u.role} == 'USER'" th:text="${u.role}">Role</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <footer th:replace="fragments/footer">Footer</footer>
+
+</body>
+</html>

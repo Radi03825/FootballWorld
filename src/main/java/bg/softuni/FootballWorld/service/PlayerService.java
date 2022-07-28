@@ -13,6 +13,7 @@ import bg.softuni.FootballWorld.repository.PlayerRepository;
 import bg.softuni.FootballWorld.repository.SkillsRepository;
 import bg.softuni.FootballWorld.repository.TeamRepository;
 import bg.softuni.FootballWorld.repository.UserRepository;
+import bg.softuni.FootballWorld.service.exceptions.ObjectNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.*;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -102,14 +103,18 @@ public class PlayerService {
     }
 
     public PlayerDetailsView getPlayerDetails(Long id) {
-        PlayerEntity player = this.playerRepository.findById(id).get();
+        Optional<PlayerEntity> player = this.playerRepository.findById(id);
 
-        PlayerDetailsView detailsView = this.modelMapper.map(player, PlayerDetailsView.class);
+        if (player.isEmpty()) {
+            throw new ObjectNotFoundException("Player not found!");
+        }
 
-        detailsView.setManager(player.getManager().getUsername());
+        PlayerDetailsView detailsView = this.modelMapper.map(player.get(), PlayerDetailsView.class);
 
-        TeamView teamView = this.modelMapper.map(player.getTeam(), TeamView.class);
-        teamView.setStadium(player.getTeam().getStadium().getName());
+        detailsView.setManager(player.get().getManager().getUsername());
+
+        TeamView teamView = this.modelMapper.map(player.get().getTeam(), TeamView.class);
+        teamView.setStadium(player.get().getTeam().getStadium().getName());
 
         detailsView.setTeam(teamView);
 
@@ -137,12 +142,14 @@ public class PlayerService {
 
         UserEntity user = this.userRepository.findByEmail(userDetails.getUsername()).get();
 
-        List<PlayerEntity> players = user.getPlayers();
+        if (!user.getPlayers().contains(player)) {
+            List<PlayerEntity> players = user.getPlayers();
 
-        players.add(player);
+            players.add(player);
 
-        user.setPlayers(players);
+            user.setPlayers(players);
 
-        this.userRepository.save(user);
+            this.userRepository.save(user);
+        }
     }
 }

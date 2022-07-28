@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:include="fragments/head">Head</head>
+
+<body>
+
+    <div th:replace="fragments/navbar">Navbar</div>
+
+    <div class="container-fluid p-3">
+
+        <h1 class="fs-1 text-center">Error: 404</h1>
+        <h2 class="text-center" th:text="${message}">Object not found!</h2>
+
+        <p class="text-center"><a class="btn bg-info" href="/">Back to Home</a></p>
+
+    </div>
+<footer th:replace="fragments/footer">Footer</footer>
+
+</body>
+</html>

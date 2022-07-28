@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:include="fragments/head">Head</head>
+
+<body>
+
+<div th:replace="fragments/navbar">Navbar</div>
+
+<h1 class="text-center text-dark">About Us</h1>
+
+<div class="container-fluid p-3">
+    <div class="row">
+        <div class="col-auto">
+            <i class="fa-solid fa-circle-phone-flip"></i>
+            <div class="container-fluid p-3 p-md-5 m-5">
+                <div class="row">
+                    <div class="col">
+                        <h1>FootballWorld</h1>
+                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit enim aperiam vero nostrum molestiae, accusamus provident, tenetur velit qui obcaecati quasi iste blanditiis aut suscipit ullam dolore! Odio, provident fugiat.</p>
+                        <p>Sponsors: <a href="/contacts">contact us</a>
+                        </p>
+                    </div>
+                    <img class="col-auto" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Football_iu_1996.jpg/1200px-Football_iu_1996.jpg"
+                         height="350px" width="250px" alt="Image">
+                </div>
+            </div>
+    </div>
+</div>
+
+<footer th:replace="fragments/footer">Footer</footer>
+
+</body>
+</html>
