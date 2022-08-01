@@ -1,6 +1,8 @@
 package bg.softuni.FootballWorld.web;
 
 import bg.softuni.FootballWorld.model.dto.PlayerCreateDTO;
+import bg.softuni.FootballWorld.model.dto.SearchPlayerDTO;
+import bg.softuni.FootballWorld.model.view.PlayerView;
 import bg.softuni.FootballWorld.schedules.PlayersSchedule;
 import bg.softuni.FootballWorld.service.PlayerService;
 import bg.softuni.FootballWorld.service.TeamService;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/players")
@@ -61,10 +64,14 @@ public class PlayerController {
     }
 
     @GetMapping("/all")
-    public String showAll(Model model, @PageableDefault(page = 0, size = 4) Pageable pageable) {
+    public String showAll(Model model, @PageableDefault(page = 0, size = 1) Pageable pageable) {
         model.addAttribute("top3players", playersSchedule.getTop3players());
         model.addAttribute("position", playersSchedule.getPosition());
-        model.addAttribute("players", this.playerService.getAll(pageable));
+
+        if (!model.containsAttribute("players")) {
+            model.addAttribute("players", this.playerService.getAll(pageable));
+        }
+
 
         return "players";
     }
@@ -78,7 +85,10 @@ public class PlayerController {
 
     @GetMapping("/my")
     public String myPlayers(Model model, @AuthenticationPrincipal UserDetails userDetails) {
-        model.addAttribute("players", this.playerService.getMyPlayers(userDetails));
+
+        List<PlayerView> myPlayers = this.playerService.getMyPlayers(userDetails);
+        model.addAttribute("players", myPlayers);
+        model.addAttribute("totalPrice", myPlayers.stream().mapToDouble(p -> p.getPrice().doubleValue()).sum());
 
         return "my-players";
     }
@@ -88,5 +98,40 @@ public class PlayerController {
         this.playerService.buy(id, userDetails);
 
         return "redirect:/players/my";
+    }
+
+    @GetMapping("/{id}/sell")
+    public String sellPlayer(@PathVariable("id") Long id, @AuthenticationPrincipal UserDetails userDetails) {
+        this.playerService.sell(id, userDetails);
+
+        return "redirect:/players/my";
+    }
+
+
+
+    @ModelAttribute("searchPlayerDTO")
+    public SearchPlayerDTO initSearch() {
+        return new SearchPlayerDTO();
+    }
+
+
+    @GetMapping("/search")
+    public String searchQuery(@Valid SearchPlayerDTO searchPlayerDTO,
+                              BindingResult bindingResult,
+                              Model model, RedirectAttributes redirectAttributes) {
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("searchPlayerDTO", searchPlayerDTO);
+            model.addAttribute(
+                    "org.springframework.validation.BindingResult.searchPlayerDTO",
+                    bindingResult);
+            return "redirect:/players/all";
+        }
+
+        if (!searchPlayerDTO.isEmpty()) {
+            redirectAttributes.addFlashAttribute("players", playerService.searchOffer(searchPlayerDTO));
+        }
+
+        return "redirect:/players/all";
     }
 }

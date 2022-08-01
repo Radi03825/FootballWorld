@@ -1,6 +1,7 @@
 package bg.softuni.FootballWorld.service;
 
 import bg.softuni.FootballWorld.model.dto.PlayerCreateDTO;
+import bg.softuni.FootballWorld.model.dto.SearchPlayerDTO;
 import bg.softuni.FootballWorld.model.entity.PlayerEntity;
 import bg.softuni.FootballWorld.model.entity.SkillsEntity;
 import bg.softuni.FootballWorld.model.entity.TeamEntity;
@@ -9,10 +10,7 @@ import bg.softuni.FootballWorld.model.entity.enums.PositionEnum;
 import bg.softuni.FootballWorld.model.view.PlayerDetailsView;
 import bg.softuni.FootballWorld.model.view.PlayerView;
 import bg.softuni.FootballWorld.model.view.TeamView;
-import bg.softuni.FootballWorld.repository.PlayerRepository;
-import bg.softuni.FootballWorld.repository.SkillsRepository;
-import bg.softuni.FootballWorld.repository.TeamRepository;
-import bg.softuni.FootballWorld.repository.UserRepository;
+import bg.softuni.FootballWorld.repository.*;
 import bg.softuni.FootballWorld.service.exceptions.ObjectNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.*;
@@ -74,10 +72,9 @@ public class PlayerService {
                     map.setAge(countYears(p.getBirthdate()));
 
                     return map;
-                })
-                .collect(Collectors.toList());
+                }).collect(Collectors.toList());
 
-        return new PageImpl<>(list);
+        return new PageImpl<>(list, pageable, this.playerRepository.findAll().size());
     }
 
     private Integer countYears(LocalDate birthdate) {
@@ -121,19 +118,17 @@ public class PlayerService {
         return detailsView;
     }
 
-    public Page<PlayerView> getMyPlayers(UserDetails userDetails) {
+    public List<PlayerView> getMyPlayers(UserDetails userDetails) {
 
         UserEntity user = this.userRepository.findByEmail(userDetails.getUsername()).get();
 
-        List<PlayerView> players = user.getPlayers().stream()
+        return user.getPlayers().stream()
                 .map(p -> {
                     PlayerView map = this.modelMapper.map(p, PlayerView.class);
                     map.setAge(countYears(p.getBirthdate()));
 
                     return map;
                 }).collect(Collectors.toList());
-
-        return new PageImpl<>(players);
     }
 
     public void buy(Long id, UserDetails userDetails) {
@@ -151,5 +146,37 @@ public class PlayerService {
 
             this.userRepository.save(user);
         }
+    }
+
+    public void sell(Long id, UserDetails userDetails) {
+
+        Optional<PlayerEntity> byId = this.playerRepository.findById(id);
+
+        if (byId.isPresent()) {
+            UserEntity user = this.userRepository.findByEmail(userDetails.getUsername()).get();
+
+            List<PlayerEntity> players = user.getPlayers();
+
+            players.remove(byId.get());
+
+            user.setPlayers(players);
+
+            this.userRepository.save(user);
+        }
+    }
+
+    public Page<PlayerView> searchOffer(SearchPlayerDTO searchPlayerDTO) {
+
+        List<PlayerView> list = this.playerRepository.findAll(new PlayerSpecification(searchPlayerDTO))
+                .stream()
+                .map(p -> {
+                    PlayerView map = this.modelMapper.map(p, PlayerView.class);
+                    map.setAge(countYears(p.getBirthdate()));
+
+                    return map;
+                })
+                .collect(Collectors.toList());
+
+        return new PageImpl<>(list);
     }
 }

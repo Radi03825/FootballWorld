@@ -9,7 +9,7 @@
 
     <h1 class="text-center text-dark mt-5">Transfer Market</h1>
 
-    <div th:if="${players.isFirst()}" th:unless="${players.size} == 0" class="container-fluid">
+    <div th:if="${players.isFirst()}" th:unless="${top3players} == null" class="container-fluid">
         <h2 class="text-center text-dark mt-5">Top 3 players</h2>
         <h4 class="text-center text-dark" th:text="|Position: ${position}|"></h4>
         <div class="offers row mx-auto d-flex flex-row justify-content-center">
@@ -23,13 +23,13 @@
                     </div>
                     <ul class="offer-details list-group list-group-flush">
                         <li class="list-group-item">
-                            <div class="card-text"><span>Age</span></div>
-                            <div class="card-text"><span>Preferred Foot</span></div>
-                            <div class="card-text"><span>Price</span></div>
+                            <div class="card-text"><span th:text="|• Age: ${tpl.age}|">Age</span></div>
+                            <div class="card-text"><span th:text="|• Preferred Foot: ${tpl.preferredFoot}|">Preferred Foot</span></div>
+                            <div class="card-text"><span th:text="|• Price: ${tpl.price}|">Price</span></div>
                         </li>
                     </ul>
                     <a class="btn btn-primary" role="button" th:href="@{/players/{playerId}/details(playerId=${tpl.id})}">Details</a>
-                    <a sec:authorize="isAuthenticated()" class="btn btn-primary" role="button" data-bs-toggle="button" href="/">Buy</a>
+                    <a sec:authorize="isAuthenticated()" class="btn btn-primary" role="button" data-bs-toggle="button" th:href="@{/players/{playerId}/buy(playerId=${tpl.id})}">Buy</a>
                     <a sec:authorize="hasRole('ADMIN')" class="btn btn-primary" role="button" data-bs-toggle="button" href="/">Delete</a>
                 </div>
             </div>
@@ -39,6 +39,59 @@
 
     <div class="container-fluid">
         <h2 th:if="${players.isFirst()}" class="text-center text-dark mt-5">All Players</h2>
+
+        <div th:if="${players.isFirst()}" class="accordion" id="accordionPanelsStayOpenExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                        Search
+                    </button>
+                </h2>
+                <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne" style="">
+                    <div class="accordion-body">
+                        <div class="container">
+                            <form
+                                    th:action="@{/players/search}"
+                                    th:method="get"
+                                    th:object="${searchPlayerDTO}"
+                                    class="form-inline"
+                                    style="justify-content: center; margin-top: 50px;"
+                            >
+                                <div class="row">
+                                    <input
+                                            th:field="*{firstName}"
+                                            class="form-control mr-sm-2"
+                                            type="search"
+                                            placeholder="FirstName..."
+                                            aria-label="Search"
+                                            id="firstName"
+                                    />
+                                    <input
+                                            th:field="*{minPrice}"
+                                            class="form-control mr-sm-2"
+                                            type="search"
+                                            placeholder="Min price..."
+                                            aria-label="Search"
+                                            id="minPrice"
+                                    />
+                                    <input
+                                            th:field="*{maxPrice}"
+                                            class="form-control mr-sm-2"
+                                            type="search"
+                                            placeholder="Max price..."
+                                            aria-label="Search"
+                                            id="maxPrice"
+                                    />
+                                </div>
+                                <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
         <div class="offers row mx-auto d-flex flex-row justify-content-center">
             <div th:each="p : ${players}" class="offer card col-sm-6 col-md-3  col-lg-2 m-4 p-0">
                 <div class="card-img-top-wrapper">
