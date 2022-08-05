@@ -42,7 +42,6 @@ public class FootballWorldUserDetailsServiceTest {
         testUserEntity.setPassword("password");
         testUserEntity.setFirstName("Test1");
         testUserEntity.setLastName("Testov");
-        //testUserEntity.setActive(true);
 
         UserRoleEntity userRole = new UserRoleEntity();
         userRole.setUserRole(UserRoleEnum.USER);

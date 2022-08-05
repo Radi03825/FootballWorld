@@ -21,7 +21,7 @@ public class TestDataUtils {
     private final StadiumRepository stadiumRepository;
     private final SkillsRepository skillsRepository;
 
-    public TestDataUtils(UserRepository userRepository, UserRoleRepository userRoleRepository, PlayerRepository playerRepository, TeamRepository teamRepository, StadiumRepository stadiumRepository, SkillsRepository skillsRepository) {
+    public TestDataUtils(UserRepository userRepository, UserRoleRepository userRoleRepository, PlayerRepository playerRepository, TeamRepository teamRepository, StadiumRepository stadiumRepository, SkillsRepository skillsRepository, CommentRepository commentRepository) {
         this.userRepository = userRepository;
         this.userRoleRepository = userRoleRepository;
         this.playerRepository = playerRepository;
@@ -30,7 +30,7 @@ public class TestDataUtils {
         this.skillsRepository = skillsRepository;
     }
 
-    private void initRoles() {
+    public void initRoles() {
         if (userRoleRepository.count() == 0) {
             UserRoleEntity userRole = new UserRoleEntity();
             userRole.setUserRole(UserRoleEnum.USER);
@@ -154,7 +154,5 @@ public class TestDataUtils {
         stadiumRepository.deleteAll();
         skillsRepository.deleteAll();
     }
-
-
 
 }

@@ -1,5 +1,10 @@
 package bg.softuni.FootballWorld.web;
 
+import bg.softuni.FootballWorld.model.entity.SkillsEntity;
+import bg.softuni.FootballWorld.model.entity.TeamEntity;
+import bg.softuni.FootballWorld.util.TestDataUtils;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -17,6 +22,19 @@ public class UserRegisterControllerIT {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @Autowired
+    private TestDataUtils testDataUtils;
+
+    @BeforeEach
+    void setUp() {
+        testDataUtils.initRoles();
+    }
+
+    @AfterEach
+    void tearDown() {
+        testDataUtils.cleanUpDatabase();
+    }
 
     @Test
     void testRegistrationPageShown() throws Exception {
