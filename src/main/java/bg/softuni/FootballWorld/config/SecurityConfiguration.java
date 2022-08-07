@@ -5,6 +5,7 @@ import bg.softuni.FootballWorld.service.FootballWorldUserDetailsService;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,6 +14,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration {
 
     @Bean
@@ -26,11 +28,12 @@ public class SecurityConfiguration {
         http.
                  authorizeRequests().
                  requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll().
-                 antMatchers("/", "/players/all", "/teams/all", "/contacts", "/about").permitAll().
-                 antMatchers("/players/**/details", "/teams/**/details", "/api/**").permitAll().
-                 antMatchers("/users/all", "/users/**/upgrade", "/teams/create").hasRole("ADMIN").
+                 antMatchers("/", "/players/all", "/players/search", "/teams/all", "/contacts", "/about").permitAll().
+                 antMatchers("/users/all", "/users/**/upgrade", "/players/create", "/teams/create").hasRole("ADMIN").
+                 antMatchers("/players/create").hasRole("MODERATOR").
+                 antMatchers("/game", "/players/my").authenticated().
+                 antMatchers("/players/**", "/teams/**", "/api/**").permitAll().
                  antMatchers( "/users/login", "/users/register").anonymous().
-                 antMatchers("/game").authenticated().
                  anyRequest().
                 authenticated().
                 and().

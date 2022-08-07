@@ -2,6 +2,7 @@ package bg.softuni.FootballWorld.model.view;
 
 import bg.softuni.FootballWorld.model.entity.PlayerEntity;
 import bg.softuni.FootballWorld.model.entity.UserEntity;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
 import javax.persistence.ManyToOne;
@@ -15,7 +16,22 @@ public class CommentView {
 
     private String username;
 
-    private LocalDateTime created;
+    private String created;
+
+    public CommentView(Long id, String message, String username, String created) {
+        this.id = id;
+        this.message = message;
+        this.username = username;
+        this.created = created;
+    }
+
+    public CommentView(Long id, String message, String username) {
+        this.id = id;
+        this.message = message;
+        this.username = username;
+    }
+
+    public CommentView(){}
 
     public Long getId() {
         return id;
@@ -41,11 +57,11 @@ public class CommentView {
         this.username = username;
     }
 
-    public LocalDateTime getCreated() {
+    public String getCreated() {
         return created;
     }
 
-    public void setCreated(LocalDateTime created) {
+    public void setCreated(String created) {
         this.created = created;
     }
 }

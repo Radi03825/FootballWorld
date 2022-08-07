@@ -1,5 +1,7 @@
 package bg.softuni.FootballWorld.model.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -10,12 +12,10 @@ import java.time.LocalDateTime;
 @Table(name = "comments")
 public class CommentEntity extends BaseEntity {
 
-    private boolean approved;
-
-    private LocalDateTime created;
-
     @Column(columnDefinition = "TEXT", nullable = false)
     private String message;
+
+    private LocalDateTime created;
 
     @ManyToOne
     private UserEntity author;
@@ -23,12 +23,12 @@ public class CommentEntity extends BaseEntity {
     @ManyToOne
     private PlayerEntity player;
 
-    public boolean isApproved() {
-        return approved;
+    public String getMessage() {
+        return message;
     }
 
-    public void setApproved(boolean approved) {
-        this.approved = approved;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public LocalDateTime getCreated() {
@@ -37,14 +37,6 @@ public class CommentEntity extends BaseEntity {
 
     public void setCreated(LocalDateTime created) {
         this.created = created;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
     }
 
     public UserEntity getAuthor() {

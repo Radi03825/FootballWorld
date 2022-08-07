@@ -23,10 +23,11 @@ public class UserEntity extends BaseEntity {
 
     private String password;
 
-    private boolean isActive;
-
     @ManyToMany(fetch = FetchType.EAGER)
     private List<UserRoleEntity> userRoles = new ArrayList<>();
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    private List<PlayerEntity> players;
 
     public String getEmail() {
         return email;
@@ -68,14 +69,6 @@ public class UserEntity extends BaseEntity {
         this.password = password;
     }
 
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public void setActive(boolean active) {
-        isActive = active;
-    }
-
     public List<UserRoleEntity> getUserRoles() {
         return userRoles;
     }
@@ -84,4 +77,11 @@ public class UserEntity extends BaseEntity {
         this.userRoles = userRoles;
     }
 
+    public List<PlayerEntity> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(List<PlayerEntity> players) {
+        this.players = players;
+    }
 }

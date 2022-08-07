@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
 public class UserRegisterDTO {
 
     @NotBlank
-    @Size(min = 5, max = 25)
+    @Size(min = 3, max = 25)
     private String firstName;
 
     @NotBlank
@@ -20,7 +20,7 @@ public class UserRegisterDTO {
     private String lastName;
 
     @NotBlank(message = "Username is required.")
-    @Size(min = 5, max = 25, message = "Username should be between 5 and 25 symbols.")
+    @Size(min = 3, max = 25, message = "Username should be between 3 and 25 symbols.")
     @UniqueUserUsername(message = "User username should be unique.")
     private String username;
 

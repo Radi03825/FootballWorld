@@ -2,21 +2,22 @@ package bg.softuni.FootballWorld.service;
 
 import bg.softuni.FootballWorld.model.dto.PlayerCreateDTO;
 import bg.softuni.FootballWorld.model.dto.SearchPlayerDTO;
-import bg.softuni.FootballWorld.model.entity.PlayerEntity;
-import bg.softuni.FootballWorld.model.entity.SkillsEntity;
-import bg.softuni.FootballWorld.model.entity.TeamEntity;
-import bg.softuni.FootballWorld.model.entity.UserEntity;
+import bg.softuni.FootballWorld.model.entity.*;
 import bg.softuni.FootballWorld.model.entity.enums.PositionEnum;
+import bg.softuni.FootballWorld.model.entity.enums.UserRoleEnum;
 import bg.softuni.FootballWorld.model.view.PlayerDetailsView;
 import bg.softuni.FootballWorld.model.view.PlayerView;
 import bg.softuni.FootballWorld.model.view.TeamView;
 import bg.softuni.FootballWorld.repository.*;
+import bg.softuni.FootballWorld.service.cloudinary.CloudinaryImage;
+import bg.softuni.FootballWorld.service.cloudinary.CloudinaryService;
 import bg.softuni.FootballWorld.service.exceptions.ObjectNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.*;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.List;
@@ -30,20 +31,33 @@ public class PlayerService {
     private final SkillsRepository skillsRepository;
     private final TeamRepository teamRepository;
     private final UserRepository userRepository;
+    private final ImageRepository imageRepository;
+    private final CloudinaryService cloudinaryService;
     private final ModelMapper modelMapper;
 
-    public PlayerService(PlayerRepository playerRepository, SkillsRepository skillsRepository, TeamRepository teamRepository, UserRepository userRepository, ModelMapper modelMapper) {
+    public PlayerService(PlayerRepository playerRepository, SkillsRepository skillsRepository, TeamRepository teamRepository, UserRepository userRepository, ImageRepository imageRepository, CloudinaryService cloudinaryService, ModelMapper modelMapper) {
         this.playerRepository = playerRepository;
         this.skillsRepository = skillsRepository;
         this.teamRepository = teamRepository;
         this.userRepository = userRepository;
+        this.imageRepository = imageRepository;
+        this.cloudinaryService = cloudinaryService;
         this.modelMapper = modelMapper;
     }
 
 
-    public void createPlayer(PlayerCreateDTO playerCreateDTO, UserDetails userDetails) {
+    public void createPlayer(PlayerCreateDTO playerCreateDTO, UserDetails userDetails) throws IOException {
 
         PlayerEntity player = this.modelMapper.map(playerCreateDTO, PlayerEntity.class);
+        CloudinaryImage uploaded = cloudinaryService.upload(playerCreateDTO.getImage());
+
+        ImageEntity imageEntity = new ImageEntity();
+        imageEntity.setUrl(uploaded.getUrl());
+        imageEntity.setPublicId(uploaded.getPublicId());
+
+        this.imageRepository.save(imageEntity);
+
+        player.setImage(imageEntity);
 
         TeamEntity teamEntity = teamRepository.findByName(playerCreateDTO.getTeam()).orElseThrow();
         UserEntity userEntity = userRepository.findByEmail(userDetails.getUsername()).orElseThrow();
@@ -108,7 +122,7 @@ public class PlayerService {
 
         PlayerDetailsView detailsView = this.modelMapper.map(player.get(), PlayerDetailsView.class);
 
-        detailsView.setManager(player.get().getManager().getUsername());
+        detailsView.setManager(player.get().getManager().getEmail());
 
         TeamView teamView = this.modelMapper.map(player.get().getTeam(), TeamView.class);
         teamView.setStadium(player.get().getTeam().getStadium().getName());
@@ -165,9 +179,9 @@ public class PlayerService {
         }
     }
 
-    public Page<PlayerView> searchOffer(SearchPlayerDTO searchPlayerDTO) {
+    public List<PlayerView> searchOffer(SearchPlayerDTO searchPlayerDTO) {
 
-        List<PlayerView> list = this.playerRepository.findAll(new PlayerSpecification(searchPlayerDTO))
+        return this.playerRepository.findAll(new PlayerSpecification(searchPlayerDTO))
                 .stream()
                 .map(p -> {
                     PlayerView map = this.modelMapper.map(p, PlayerView.class);
@@ -176,7 +190,33 @@ public class PlayerService {
                     return map;
                 })
                 .collect(Collectors.toList());
+    }
 
-        return new PageImpl<>(list);
+    public void deletePlayer(Long id) {
+        this.playerRepository.deleteById(id);
+    }
+
+
+    public boolean isOwner(String userName, Long playerId) {
+
+        boolean isOwner = playerRepository.
+                findById(playerId).
+                filter(p -> p.getManager().getEmail().equals(userName)).
+                isPresent();
+
+        if (isOwner) {
+            return true;
+        }
+
+        return userRepository.
+                findByEmail(userName).
+                filter(this::isAdmin).
+                isPresent();
+    }
+
+    private boolean isAdmin(UserEntity user) {
+        return user.getUserRoles().
+                stream().
+                anyMatch(r -> r.getUserRole() == UserRoleEnum.ADMIN);
     }
 }

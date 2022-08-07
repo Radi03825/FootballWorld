@@ -38,7 +38,10 @@ async function handleFormSubmission(event) {
 function commentAsHtml(comment) {
     let commentHtml = '<hr>\n'
     commentHtml += '<div>\n'
-    commentHtml += `<h4>${comment.username}</h4>\n`
+    commentHtml += '<div class="row">\n'
+    commentHtml += `<h4 class="col">${comment.username}</h4>\n`
+    commentHtml += `<span class="col-auto">(${comment.created})</span>\n`
+    commentHtml += '</div>\n'
     commentHtml += `<p>${comment.message}</p>\n`
     commentHtml += '</div>\n'
 

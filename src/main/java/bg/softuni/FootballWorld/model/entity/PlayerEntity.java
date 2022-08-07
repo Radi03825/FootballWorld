@@ -32,7 +32,8 @@ public class PlayerEntity extends BaseEntity{
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    private String imageUrl;
+    @ManyToOne
+    private ImageEntity image;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -48,16 +49,15 @@ public class PlayerEntity extends BaseEntity{
     @OneToMany(targetEntity = CommentEntity.class, mappedBy = "player", cascade = CascadeType.ALL)
     private Set<CommentEntity> comments;
 
-    //TODO
-    private LocalDateTime created;
-    private LocalDateTime modified;
-
-
     @ManyToOne
     private TeamEntity team;
 
     @ManyToOne
     private UserEntity manager;
+
+    public ImageEntity getImage() {
+        return image;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -107,12 +107,8 @@ public class PlayerEntity extends BaseEntity{
         this.description = description;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImage(ImageEntity image) {
+        this.image = image;
     }
 
     public PreferredFootEnum getPreferredFoot() {
@@ -145,22 +141,6 @@ public class PlayerEntity extends BaseEntity{
 
     public void setComments(Set<CommentEntity> comments) {
         this.comments = comments;
-    }
-
-    public LocalDateTime getCreated() {
-        return created;
-    }
-
-    public void setCreated(LocalDateTime created) {
-        this.created = created;
-    }
-
-    public LocalDateTime getModified() {
-        return modified;
-    }
-
-    public void setModified(LocalDateTime modified) {
-        this.modified = modified;
     }
 
     public TeamEntity getTeam() {

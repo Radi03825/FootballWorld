@@ -4,6 +4,7 @@ import bg.softuni.FootballWorld.model.entity.TeamEntity;
 import bg.softuni.FootballWorld.model.entity.enums.PositionEnum;
 import bg.softuni.FootballWorld.model.entity.enums.PreferredFootEnum;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
@@ -11,7 +12,7 @@ import java.time.LocalDate;
 
 public class PlayerCreateDTO {
 
-    @Size(min = 5, max = 25)
+    @Size(min = 3, max = 25)
     @NotBlank
     private String firstName;
 
@@ -42,8 +43,7 @@ public class PlayerCreateDTO {
     @NotNull
     private BigDecimal price;
 
-    @NotBlank
-    private String imageUrl;
+    private MultipartFile image;
 
     @Size(min = 5)
     @NotBlank
@@ -133,12 +133,12 @@ public class PlayerCreateDTO {
         this.price = price;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public MultipartFile getImage() {
+        return image;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImage(MultipartFile image) {
+        this.image = image;
     }
 
     public String getDescription() {

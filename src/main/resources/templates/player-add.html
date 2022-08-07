@@ -14,7 +14,8 @@
         <form th:action="@{/players/create}"
               th:method="post"
               th:object="${playerCreateDTO}"
-                class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
+              enctype="multipart/form-data"
+              class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
 
             <h4 class="text-white">Personal information:</h4>
             <div class="row">
@@ -33,10 +34,10 @@
                     <label class="text-white font-weight-bold">Last Name</label>
                     <input th:field="*{lastName}"
                            th:errorclass="is-invalid"
-                            id="lastName" type="text" class="form-control"
+                           id="lastName" type="text" class="form-control"
                            placeholder="Last Name"/>
                     <p class="invalid-feedback errors alert alert-danger">
-                        Last name is required and should be between 3 and 25 symbols.
+                        Last name is required and should be between 5 and 25 symbols.
                     </p>
                 </div>
             </div>
@@ -121,11 +122,11 @@
             </div>
 
             <div class="form-group">
-                <label class="text-white font-weight-bold" for="imageUrl">Image URL</label>
-                <input th:field="*{imageUrl}" th:errorclass="is-invalid" id="imageUrl" type="url" class="form-control"
-                       placeholder="Image URL">
+                <label class="text-white font-weight-bold" for="image">Image</label>
+                <input th:field="*{image}" th:errorclass="is-invalid" id="image" type="file" class="form-control"
+                       placeholder="Image">
                 <p class="invalid-feedback errors alert alert-danger">
-                    Image Url is required.
+                    Image is required.
                 </p>
             </div>
 
@@ -197,7 +198,7 @@
         </form>
     </div>
 
-    <footer th:include="fragments/footer">Footer</footer>
+    <footer th:replace="fragments/footer">Footer</footer>
 
     <script src="/js/player-add.js"></script>
 
