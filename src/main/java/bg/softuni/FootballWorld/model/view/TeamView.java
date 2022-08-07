@@ -1,7 +1,6 @@
 package bg.softuni.FootballWorld.model.view;
 
 public class TeamView {
-//TODO - add badgeImageUrl
     private Long id;
 
     private String name;

@@ -40,10 +40,7 @@ public class UserController {
 
     @GetMapping("/{id}/upgrade")
     public String upgrade(@PathVariable Long id) {
-
         this.userService.upgrade(id);
-
-        System.out.println("I am here: " + id);
 
         return "redirect:/users/all";
     }

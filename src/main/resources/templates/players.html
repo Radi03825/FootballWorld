@@ -9,7 +9,8 @@
 
     <h1 class="text-center text-dark mt-5">Transfer Market</h1>
 
-    <div th:if="${players.isFirst()}" th:unless="${top3players} == null" class="container-fluid">
+    <div th:unless="${top3players} == null or ${players} == null">
+    <div th:if="${players.isFirst()}" class="container-fluid">
         <h2 class="text-center text-dark mt-5">Top 3 players</h2>
         <h4 class="text-center text-dark" th:text="|Position: ${position}|"></h4>
         <div class="offers row mx-auto d-flex flex-row justify-content-center">
@@ -28,26 +29,27 @@
                             <div class="card-text"><span th:text="|• Price: ${tpl.price}|">Price</span></div>
                         </li>
                     </ul>
-                    <a class="btn btn-primary" role="button" th:href="@{/players/{playerId}/details(playerId=${tpl.id})}">Details</a>
-                    <a sec:authorize="isAuthenticated()" class="btn btn-primary" role="button" data-bs-toggle="button" th:href="@{/players/{playerId}/buy(playerId=${tpl.id})}">Buy</a>
-                    <a sec:authorize="hasRole('ADMIN')" class="btn btn-primary" role="button" data-bs-toggle="button" href="/">Delete</a>
+                    <a class="btn btn-primary" role="button" th:href="@{/players/{playerId}(playerId=${tpl.id})}">Details</a>
+                    <a sec:authorize="isAuthenticated()" class="btn btn-primary" role="button" th:href="@{/players/{playerId}/buy(playerId=${tpl.id})}">Buy</a>
                 </div>
             </div>
         </div>
     </div>
-
+    </div>
 
     <div class="container-fluid">
+        <div th:unless="${players} == null">
         <h2 th:if="${players.isFirst()}" class="text-center text-dark mt-5">All Players</h2>
+        </div>
 
-        <div th:if="${players.isFirst()}" class="accordion" id="accordionPanelsStayOpenExample">
+        <div class="accordion w-25 p-3 d-flex justify-content-center" id="accordionPanelsStayOpenExample">
             <div class="accordion-item">
                 <h2 class="accordion-header" id="panelsStayOpen-headingOne">
                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
                         Search
                     </button>
                 </h2>
-                <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne" style="">
+                <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
                     <div class="accordion-body">
                         <div class="container">
                             <form
@@ -55,7 +57,7 @@
                                     th:method="get"
                                     th:object="${searchPlayerDTO}"
                                     class="form-inline"
-                                    style="justify-content: center; margin-top: 50px;"
+                                    style="justify-content: center;"
                             >
                                 <div class="row">
                                     <input
@@ -92,7 +94,7 @@
 
         </div>
 
-        <div class="offers row mx-auto d-flex flex-row justify-content-center">
+        <div th:if="${players} != null" class="offers row mx-auto d-flex flex-row justify-content-center">
             <div th:each="p : ${players}" class="offer card col-sm-6 col-md-3  col-lg-2 m-4 p-0">
                 <div class="card-img-top-wrapper">
                     <img class="card-img-top" th:src="${p.imageUrl}" alt="Player image">
@@ -109,17 +111,44 @@
                             <div class="card-text"><span th:text="|• Price: ${p.price}|">Price</span></div>
                         </li>
                     </ul>
-                    <a class="btn btn-primary" role="button" th:href="@{/players/{playerId}/details(playerId=${p.id})}">Details</a>
+                    <a class="btn btn-primary" role="button" th:href="@{/players/{playerId}(playerId=${p.id})}">Details</a>
                     <a sec:authorize="isAuthenticated()" class="btn btn-primary" role="button" th:href="@{/players/{playerId}/buy(playerId=${p.id})}">Buy</a>
-                    <a sec:authorize="hasRole('ADMIN')" class="btn btn-primary" role="button" href="/">Delete</a>
+                </div>
+            </div>
+        </div>
+
+        <div th:if="${foundPlayers} != null" class="offers row mx-auto d-flex flex-row justify-content-center">
+            <div th:each="p : ${foundPlayers}" class="offer card col-sm-6 col-md-3  col-lg-2 m-4 p-0">
+                <div class="card-img-top-wrapper">
+                    <img class="card-img-top" th:src="${p.imageUrl}" alt="Player image">
+                </div>
+                <div class="card-body">
+                    <div class="card-body pb-1">
+                        <h5 class="card-title" th:text="|${p.firstName} ${p.lastName}|">Player Name</h5>
+                    </div>
+                    <ul class="offer-details list-group list-group-flush">
+                        <li class="list-group-item">
+                            <div class="card-text"><span th:text="|• Position: ${p.position}|">Position</span></div>
+                            <div class="card-text"><span th:text="|• Age: ${p.age}|" >Age</span></div>
+                            <div class="card-text"><span th:text="|• Preferred Foot: ${p.preferredFoot}|">Preferred Foot</span></div>
+                            <div class="card-text"><span th:text="|• Price: ${p.price}|">Price</span></div>
+                        </li>
+                    </ul>
+                    <a class="btn btn-primary" role="button" th:href="@{/players/{playerId}(playerId=${p.id})}">Details</a>
+                    <a sec:authorize="isAuthenticated()" class="btn btn-primary" role="button" th:href="@{/players/{playerId}/buy(playerId=${p.id})}">Buy</a>
                 </div>
             </div>
         </div>
     </div>
 
-    <h4 th:if="${players.size} == 0" class="text-center">None</h4>
+    <div th:unless="${players} == null">
+        <h4 th:if="${players.size} == 0" class="text-center">None</h4>
+    </div>
+    <div th:if="${foundPlayers} != null">
+        <h4 th:if="${foundPlayers.size} == 0" class="text-center">No matches.</h4>
+    </div>
 
-    <div class="container-fluid">
+    <div th:if="${players} != null" class="container-fluid">
             <ul class="pagination justify-content-center">
                 <li class="page-item" th:classappend="${players.isFirst()} ? 'disabled' : ''">
                     <a th:unless="${players.isFirst()}"
@@ -128,6 +157,8 @@
                     <a th:if="${players.isFirst()}"
                        class="page-link" href="#">First</a>
                 </li>
+
+
                 <li class="page-item" th:classappend="${players.hasPrevious() ? '' : 'disabled'}">
                     <a th:if="${players.hasPrevious()}"
                        th:href="@{/players/all(size=${players.getSize()},page=${players.getNumber() - 1})}"
@@ -135,6 +166,7 @@
                     <a th:unless="${players.hasPrevious()}"
                        class="page-link" href="#">Previous</a>
                 </li>
+
                 <li class="page-item" th:classappend="${players.hasNext() ? '' : 'disabled'}">
                     <a th:if="${players.hasNext()}"
                        th:href="@{/players/all(size=${players.getSize()},page=${players.getNumber() + 1})}"
@@ -142,6 +174,8 @@
                     <a th:unless="${players.hasNext()}"
                        class="page-link" href="#">Next</a>
                 </li>
+
+
                 <li class="page-item" th:classappend="${players.isLast()} ? 'disabled' : ''">
                     <a th:unless="${players.isLast()}"
                        th:href="@{/players/all(size=${players.getSize()},page=${players.getTotalPages() - 1})}"

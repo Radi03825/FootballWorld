@@ -5,6 +5,7 @@ import bg.softuni.FootballWorld.model.entity.TeamEntity;
 import bg.softuni.FootballWorld.service.TeamService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -35,7 +38,7 @@ public class TeamController {
     }
 
     @PostMapping("/create")
-    public String createPlayer(@Valid TeamCreateDTO teamCreateDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    public String createPlayer(@Valid TeamCreateDTO teamCreateDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes) throws IOException {
 
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("teamCreateDTO", teamCreateDTO);
@@ -57,11 +60,20 @@ public class TeamController {
         return "teams";
     }
 
-    @GetMapping("/{id}/details")
+    @GetMapping("/{id}")
     public String details(@PathVariable("id") Long id, Model model) {
         model.addAttribute("team", this.teamService.getTeamDetails(id));
 
         return "team-details";
+    }
+
+
+    @PreAuthorize("@teamService.isAdmin(#principal.name)")
+    @DeleteMapping("/{id}")
+    public String deleteTeam(Principal principal, @PathVariable Long id) {
+        this.teamService.deleteTeam(id);
+
+        return "redirect:/teams/all";
     }
 
 }

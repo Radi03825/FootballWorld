@@ -8,6 +8,7 @@ import bg.softuni.FootballWorld.service.PlayerService;
 import bg.softuni.FootballWorld.service.TeamService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -49,7 +52,7 @@ public class PlayerController {
     @PostMapping("/create")
     public String createPlayer(@Valid PlayerCreateDTO playerCreateDTO, BindingResult bindingResult,
                                RedirectAttributes redirectAttributes,
-                               @AuthenticationPrincipal UserDetails userDetails) {
+                               @AuthenticationPrincipal UserDetails userDetails) throws IOException {
 
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("playerCreateDTO", playerCreateDTO);
@@ -68,7 +71,7 @@ public class PlayerController {
         model.addAttribute("top3players", playersSchedule.getTop3players());
         model.addAttribute("position", playersSchedule.getPosition());
 
-        if (!model.containsAttribute("players")) {
+        if (!model.containsAttribute("foundPlayers")) {
             model.addAttribute("players", this.playerService.getAll(pageable));
         }
 
@@ -76,7 +79,7 @@ public class PlayerController {
         return "players";
     }
 
-    @GetMapping("/{id}/details")
+    @GetMapping("/{id}")
     public String details(@PathVariable("id") Long id, Model model) {
         model.addAttribute("player", this.playerService.getPlayerDetails(id));
 
@@ -129,8 +132,17 @@ public class PlayerController {
         }
 
         if (!searchPlayerDTO.isEmpty()) {
-            redirectAttributes.addFlashAttribute("players", playerService.searchOffer(searchPlayerDTO));
+            redirectAttributes.addFlashAttribute("searchPlayerDTO", searchPlayerDTO);
+            redirectAttributes.addFlashAttribute("foundPlayers", playerService.searchOffer(searchPlayerDTO));
         }
+
+        return "redirect:/players/all";
+    }
+
+    @PreAuthorize("@playerService.isOwner(#principal.name, #id)")
+    @DeleteMapping("/{id}")
+    public String deletePlayer(Principal principal, @PathVariable Long id) throws IOException {
+        this.playerService.deletePlayer(id);
 
         return "redirect:/players/all";
     }

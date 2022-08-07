@@ -1,12 +1,13 @@
 package bg.softuni.FootballWorld.service;
 
 import bg.softuni.FootballWorld.model.dto.TeamCreateDTO;
+import bg.softuni.FootballWorld.model.entity.PlayerEntity;
 import bg.softuni.FootballWorld.model.entity.StadiumEntity;
 import bg.softuni.FootballWorld.model.entity.TeamEntity;
+import bg.softuni.FootballWorld.model.entity.enums.UserRoleEnum;
 import bg.softuni.FootballWorld.model.view.TeamDetailsView;
 import bg.softuni.FootballWorld.model.view.TeamView;
-import bg.softuni.FootballWorld.repository.StadiumRepository;
-import bg.softuni.FootballWorld.repository.TeamRepository;
+import bg.softuni.FootballWorld.repository.*;
 import bg.softuni.FootballWorld.service.exceptions.ObjectNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -14,7 +15,6 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -25,11 +25,17 @@ public class TeamService {
     private final TeamRepository teamRepository;
     private final ModelMapper modelMapper;
     private final StadiumRepository stadiumRepository;
+    private final UserRepository userRepository;
+    private final PlayerRepository playerRepository;
+    private final SkillsRepository skillsRepository;
 
-    public TeamService(TeamRepository teamRepository, ModelMapper modelMapper, StadiumRepository stadiumRepository) {
+    public TeamService(TeamRepository teamRepository, ModelMapper modelMapper, StadiumRepository stadiumRepository, UserRepository userRepository, PlayerRepository playerRepository, SkillsRepository skillsRepository) {
         this.teamRepository = teamRepository;
         this.modelMapper = modelMapper;
         this.stadiumRepository = stadiumRepository;
+        this.userRepository = userRepository;
+        this.playerRepository = playerRepository;
+        this.skillsRepository = skillsRepository;
     }
 
     public void create(TeamCreateDTO teamCreateDTO) {
@@ -68,10 +74,8 @@ public class TeamService {
 
     public Page<TeamView> getAll(Pageable pageable) {
 
-        List<TeamView> all = this.teamRepository.findAll(pageable).stream()
-                .map(this::mapTeam).collect(Collectors.toList());
-
-        return new PageImpl<>(all);
+        return this.teamRepository.findAll(pageable)
+                .map(this::mapTeam);
     }
 
     private TeamView mapTeam(TeamEntity t) {
@@ -88,5 +92,24 @@ public class TeamService {
         }
 
         return this.modelMapper.map(team.get(), TeamDetailsView.class);
+    }
+
+    public void deleteTeam(Long id) {
+        List<PlayerEntity> allPlayersByTeamId = this.playerRepository.findAllByTeamId(id);
+
+        this.playerRepository.deleteAll(allPlayersByTeamId);
+
+        allPlayersByTeamId
+                .forEach(p -> skillsRepository.deleteById(p.getSkills().getId()));
+
+        this.teamRepository.deleteById(id);
+    }
+
+
+    public boolean isAdmin(String userName) {
+        return userRepository.
+                findByEmail(userName).
+                filter(u -> u.getUserRoles().stream().anyMatch(r -> r.getUserRole() == UserRoleEnum.ADMIN)).
+                isPresent();
     }
 }

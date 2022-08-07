@@ -80,15 +80,13 @@ public class PlayerService {
     }
 
     public Page<PlayerView> getAll(Pageable pageable) {
-        List<PlayerView> list = this.playerRepository.findAll(pageable).stream()
+        return this.playerRepository.findAll(pageable)
                 .map(p -> {
                     PlayerView map = this.modelMapper.map(p, PlayerView.class);
                     map.setAge(countYears(p.getBirthdate()));
 
                     return map;
-                }).collect(Collectors.toList());
-
-        return new PageImpl<>(list, pageable, this.playerRepository.findAll().size());
+                });
     }
 
     private Integer countYears(LocalDate birthdate) {
@@ -192,8 +190,16 @@ public class PlayerService {
                 .collect(Collectors.toList());
     }
 
-    public void deletePlayer(Long id) {
-        this.playerRepository.deleteById(id);
+    public void deletePlayer(Long id) throws IOException {
+        PlayerEntity player = this.playerRepository.findById(id).get();
+
+        ImageEntity image = player.getImage();
+
+        cloudinaryService.delete(image.getPublicId());
+
+        this.playerRepository.delete(player);
+
+        imageRepository.delete(image);
     }
 
 

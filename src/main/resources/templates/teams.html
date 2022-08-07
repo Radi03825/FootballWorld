@@ -24,8 +24,16 @@
                         <div class="card-text"><span th:text="|• Stadium: ${t.stadium}|" >Stadium</span></div>
                     </li>
                 </ul>
-                <a class="btn btn-primary" role="button" th:href="@{/teams/{teamId}/details(teamId=*{t.id})}">Details</a>
-                <a sec:authorize="hasRole('ADMIN')" class="btn btn-primary" role="button" data-bs-toggle="button" href="/">Delete</a>
+                <div class="row">
+                <a class="btn btn-primary col-auto" role="button" th:href="@{/teams/{teamId}(teamId=*{t.id})}">Details</a>
+                <form
+                        sec:authorize="hasRole('ADMIN')"
+                        th:action="@{/teams/{id}(id=${t.id})}"
+                        th:method="delete"
+                        class="col-auto">
+                    <input class="btn btn-primary" type="submit" value="Delete">
+                </form>
+                </div>
             </div>
         </div>
     </div>
@@ -66,7 +74,7 @@
     </ul>
 </div>
 
-<footer th:include="fragments/footer">Footer</footer>
+<footer th:replace="fragments/footer">Footer</footer>
 
 </body>
 </html>

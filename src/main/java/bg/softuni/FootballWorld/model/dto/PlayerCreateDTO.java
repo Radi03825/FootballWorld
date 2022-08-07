@@ -1,8 +1,8 @@
 package bg.softuni.FootballWorld.model.dto;
 
-import bg.softuni.FootballWorld.model.entity.TeamEntity;
 import bg.softuni.FootballWorld.model.entity.enums.PositionEnum;
 import bg.softuni.FootballWorld.model.entity.enums.PreferredFootEnum;
+import bg.softuni.FootballWorld.model.validation.FileNotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -43,6 +43,7 @@ public class PlayerCreateDTO {
     @NotNull
     private BigDecimal price;
 
+    @FileNotNull
     private MultipartFile image;
 
     @Size(min = 5)

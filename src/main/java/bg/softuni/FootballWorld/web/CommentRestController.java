@@ -3,14 +3,11 @@ package bg.softuni.FootballWorld.web;
 import bg.softuni.FootballWorld.model.dto.CommentCreateDTO;
 import bg.softuni.FootballWorld.model.view.CommentView;
 import bg.softuni.FootballWorld.service.CommentService;
-import bg.softuni.FootballWorld.service.exceptions.ObjectNotFoundException;
-import bg.softuni.FootballWorld.web.error.ErrorApiResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -42,10 +39,5 @@ public class CommentRestController {
     @GetMapping("/{playerId}/comments")
     public ResponseEntity<List<CommentView>> getComments(@PathVariable("playerId") Long playerId) {
         return ResponseEntity.ok(commentService.getAllComments(playerId));
-    }
-
-    @ExceptionHandler({ObjectNotFoundException.class})
-    public ResponseEntity<ErrorApiResponse> handleRouteNotFound() {
-        return ResponseEntity.status(404).body(new ErrorApiResponse("Player not found!"));
     }
 }

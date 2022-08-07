@@ -19,7 +19,6 @@ public class UserRegisterController {
 
     private final UserService userService;
 
-    @Autowired
     public UserRegisterController(UserService userService) {
         this.userService = userService;
     }
