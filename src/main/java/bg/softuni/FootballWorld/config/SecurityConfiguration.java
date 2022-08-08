@@ -31,7 +31,7 @@ public class SecurityConfiguration {
                  antMatchers("/", "/players/all", "/players/search", "/teams/all", "/contacts", "/about").permitAll().
                  antMatchers("/users/all", "/users/**/upgrade", "/players/create", "/teams/create").hasRole("ADMIN").
                  antMatchers("/players/create").hasRole("MODERATOR").
-                 antMatchers( "/players/my").authenticated().
+                 antMatchers( "/players/my", "game").authenticated().
                  antMatchers("/players/**", "/teams/**", "/api/**").permitAll().
                  antMatchers( "/users/login", "/users/register").anonymous().
                  anyRequest().

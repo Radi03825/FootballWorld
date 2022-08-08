@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:include="fragments/head">Head</head>
+
+<body>
+
+<div th:replace="fragments/navbar">Navbar</div>
+
+<div class="jumbotron">
+    <h1 class="text-center pt-5 text-dark font-weight-bold">Game</h1>
+    <h3 class="text-center pb-4 text-dark font-weight-bold">1 vs 1</h3>
+    <div class="btn-group dropend ms-3">
+        <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            Rules
+        </button>
+        <ul class="dropdown-menu">
+            <p>Rule: 1</p>
+            <p>Rule: 2</p>
+        </ul>
+    </div>
+    <form th:action="@{/game}"
+          th:method="post"
+          th:object="${gameDTO}"
+          class="row m-2">
+        <div class="col-md-6">
+            <div class="card flex-md-row bg-blur mb-4 box-shadow h-md-250">
+                <div class="card-body d-flex flex-column align-items-start shadow-lg">
+                    <strong class="d-inline-block mb-2 text-primary">My player</strong>
+                    <span class="user-full-name"></span>
+                    <h3 class="mb-0 text-dark">
+                        Select player
+                    </h3>
+                    <div class="mb-1 text-dark">Select one of your players</div>
+                    <span th:if="${players.size} == 0"  class="mt-5 mb-2">Don't have players. Go and <a href="/players/all">buy players</a> to play.</span>
+                    <select th:unless="${players.size} == 0"
+                            th:field="*{firstPlayer}"
+                            th:errorclass="is-invalid"
+                            id="firstPlayer" class="form-select mt-5" aria-label="Default select example">
+                        <option value="" selected>Select one of your players</option>
+                        <option th:each="p : ${players}"
+                                th:text="|${p.firstName} ${p.lastName}|"
+                                th:value="${p.id}"
+                                th:selected="${p.id} == *{firstPlayer}"></option>
+                    </select>
+                    <p class="invalid-feedback errors alert alert-danger">
+                        Your player is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="bg-blur card flex-md-row mb-4 box-shadow h-md-250">
+                <div class="card-body d-flex flex-column align-items-start shadow-lg">
+                    <strong class="d-inline-block mb-2 text-danger">Opponent</strong>
+                    <span class="user-full-name"></span>
+                    <h3 class="mb-0 text-dark">
+                        Select player
+                    </h3>
+                    <div class="mb-1 text-dark">Select one of this three random given players</div>
+                    <select th:field="*{secondPlayer}"
+                            th:errorclass="is-invalid"
+                            class="form-select mt-5" aria-label="Default select example">
+                        <option value="" selected >Select one player</option>
+                        <option th:each="o : ${opponents}"
+                                th:text="|${o.firstName} ${o.lastName}|"
+                                th:value="${o.id}"
+                                th:selected="${o.id} == *{secondPlayer}"></option>
+                    </select>
+                    <p class="invalid-feedback errors alert alert-danger">
+                        Opponent player is required.
+                    </p>
+
+                </div>
+
+            </div>
+        </div>
+
+        <p th:if="${samePlayers}" class="errors alert alert-danger text-center">
+            Players should be different.
+        </p>
+
+        <input th:classappend="${players.size == 0} ? 'disabled' : ''" type="submit" class="col-md-6 mx-auto btn btn-danger btn-lg btn-block mt-5 mb-5" value="PLAY">
+    </form>
+
+</div>
+
+
+
+<footer th:replace="fragments/footer">Footer</footer>
+
+</body>
+</html>

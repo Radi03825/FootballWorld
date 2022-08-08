@@ -20,14 +20,16 @@ public class TestDataUtils {
     private final TeamRepository teamRepository;
     private final StadiumRepository stadiumRepository;
     private final SkillsRepository skillsRepository;
+    private final ImageRepository imageRepository;
 
-    public TestDataUtils(UserRepository userRepository, UserRoleRepository userRoleRepository, PlayerRepository playerRepository, TeamRepository teamRepository, StadiumRepository stadiumRepository, SkillsRepository skillsRepository, CommentRepository commentRepository) {
+    public TestDataUtils(UserRepository userRepository, UserRoleRepository userRoleRepository, PlayerRepository playerRepository, TeamRepository teamRepository, StadiumRepository stadiumRepository, SkillsRepository skillsRepository, CommentRepository commentRepository, ImageRepository imageRepository) {
         this.userRepository = userRepository;
         this.userRoleRepository = userRoleRepository;
         this.playerRepository = playerRepository;
         this.teamRepository = teamRepository;
         this.stadiumRepository = stadiumRepository;
         this.skillsRepository = skillsRepository;
+        this.imageRepository = imageRepository;
     }
 
     public void initRoles() {
@@ -108,6 +110,7 @@ public class TestDataUtils {
         player.setManager(user);
         player.setTeam(team);
         player.setSkills(skills);
+        player.setImage(createTestImage());
 
         return playerRepository.save(player);
     }
@@ -144,6 +147,15 @@ public class TestDataUtils {
         skills.setDefending(number);
 
         return skillsRepository.save(skills);
+    }
+
+    public ImageEntity createTestImage() {
+        ImageEntity image = new ImageEntity();
+
+        image.setUrl("url");
+        image.setPublicId("public_id");
+
+        return imageRepository.save(image);
     }
 
     public void cleanUpDatabase() {

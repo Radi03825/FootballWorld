@@ -53,7 +53,7 @@ public class TeamController {
     }
 
     @GetMapping("/all")
-    public String showAll(Model model, @PageableDefault(page = 0, size = 9) Pageable pageable) {
+    public String showAll(Model model, @PageableDefault(page = 0, size = 4) Pageable pageable) {
 
         model.addAttribute("teams", this.teamService.getAll(pageable));
 

@@ -9,7 +9,7 @@
 
     <div th:replace="fragments/navbar">Navbar</div>
 
-    <div class="container bg-dark">
+    <div class="container bg-dark my-3 p-3 rounded">
         <h2 class="text-center text-white">CREATE PLAYER</h2>
         <form th:action="@{/players/create}"
               th:method="post"
@@ -25,7 +25,7 @@
                     <input th:field="*{firstName}"
                            th:errorclass="is-invalid"
                             id="firstName" name="firstName" type="text" class="form-control"
-                           placeholder="First Name"/>
+                           placeholder="First Name" required/>
                     <p class="invalid-feedback errors alert alert-danger">
                         First name is required and should be between 3 and 25 symbols.
                     </p>
@@ -35,7 +35,7 @@
                     <input th:field="*{lastName}"
                            th:errorclass="is-invalid"
                            id="lastName" type="text" class="form-control"
-                           placeholder="Last Name"/>
+                           placeholder="Last Name" required/>
                     <p class="invalid-feedback errors alert alert-danger">
                         Last name is required and should be between 5 and 25 symbols.
                     </p>
@@ -47,7 +47,7 @@
                     <input  th:field="*{birthdate}"
                             th:errorclass="is-invalid"
                             id="birthdate" type="date" class="form-control"
-                           placeholder="Birthdate"/>
+                           placeholder="Birthdate" required/>
                     <p class="invalid-feedback errors alert alert-danger">
                         Birthdate is required and should be in the past.
                     </p>
@@ -114,7 +114,7 @@
                 <div class="form-group col-md-6 mb-3">
                     <label for="price" class="text-white font-weight-bold">Transfer Price</label>
                     <input id="price" th:field="*{price}" th:errorclass="is-invalid" name="price" type="number" class="form-control"
-                           placeholder="Transfer Price"/>
+                           placeholder="Transfer Price" required>
                     <p class="invalid-feedback errors alert alert-danger">
                         Transfer price is required and should be positive.
                     </p>
@@ -124,7 +124,7 @@
             <div class="form-group">
                 <label class="text-white font-weight-bold" for="image">Image</label>
                 <input th:field="*{image}" th:errorclass="is-invalid" id="image" type="file" class="form-control"
-                       placeholder="Image">
+                       placeholder="Image" required>
                 <p class="invalid-feedback errors alert alert-danger">
                     Image is required.
                 </p>
@@ -139,14 +139,14 @@
                 </p>
             </div>
 
-            <h4 class="text-white">Skills:</h4>
+            <h4 class="text-white mt-4">Skills:</h4>
 
             <div class="row">
                 <div class="form-group col-md-6 mb-3">
                     <label for="pace" class="text-white font-weight-bold">Pace</label>
                     <span class="text-white rangeValue" th:text="*{pace} == null ? '50' : *{pace}"></span>
                     <div class="range">
-                        <input th:field="*{pace}" th:errorclass="is-invalid" type="range" class="form-range" id="customRange1" />
+                        <input th:field="*{pace}" th:errorclass="is-invalid" type="range" class="form-range"/>
                     </div>
                     <p class="invalid-feedback errors alert alert-danger">
                         Pace should be between 0 and 100 symbols.
@@ -156,7 +156,7 @@
                     <label for="shoot" class="text-white font-weight-bold">Shoot</label>
                     <span class="text-white rangeValue" th:text="*{shoot} == null ? '50' : *{shoot}">50</span>
                     <div class="range">
-                        <input th:field="*{shoot}" th:errorclass="is-invalid" type="range" class="form-range" id="customRange1" />
+                        <input th:field="*{shoot}" th:errorclass="is-invalid" type="range" class="form-range"/>
                     </div>
                     <p class="invalid-feedback errors alert alert-danger">
                         Shoot should be between 0 and 100 symbols.
@@ -169,7 +169,7 @@
                     <label for="pass" class="text-white font-weight-bold">Pass</label>
                     <span class="text-white rangeValue" th:text="*{pass} == null ? '50' : *{pass}">50</span>
                     <div class="range">
-                        <input th:field="*{pass}" th:errorclass="is-invalid" type="range" class="form-range" id="customRange1" />
+                        <input th:field="*{pass}" th:errorclass="is-invalid" type="range" class="form-range"/>
                     </div>
                     <p class="invalid-feedback errors alert alert-danger">
                         Pass should be between 0 and 100 symbols.
@@ -179,7 +179,7 @@
                     <label for="year" class="text-white font-weight-bold">Defence</label>
                     <span class="text-white rangeValue" th:text="*{defence} == null ? '50' : *{defence}">50</span>
                     <div class="range">
-                        <input th:field="*{defence}" th:errorclass="is-invalid" type="range" class="form-range" id="customRange1" min="0" max="100" value="50"/>
+                        <input th:field="*{defence}" th:errorclass="is-invalid" type="range" class="form-range" min="0" max="100" value="50"/>
                     </div>
                     <p class="invalid-feedback errors alert alert-danger">
                         Defence should be between 0 and 100 symbols.
@@ -189,7 +189,7 @@
 
 
             <div class="row">
-                <div class="col col-md-4">
+                <div class="col col-md-4 mb-3">
                     <div class="button-holder d-flex">
                         <input type="submit" class="btn btn-info btn-lg" value="CREATE"/>
                     </div>

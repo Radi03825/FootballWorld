@@ -27,7 +27,7 @@
                     <div class="card-text"><span th:text="|• Birthdate: *{birthdate}|">Birthdate</span></div>
                     <div class="card-text"><span th:text="|• Height: *{height} cm|">Height</span></div>
                     <div class="card-text"><span th:text="|• Preferred Foot: *{preferredFoot}|">Preferred Foot</span></div>
-                    <div class="card-text"><span>• Team: <a th:href="@{/teams/{teamId}/details(teamId=*{team.id})}" th:text="*{team.name}"></a></span></div>
+                    <div class="card-text"><span>• Team: <a th:href="@{/teams/{teamId}(teamId=*{team.id})}" th:text="*{team.name}"></a></span></div>
                 </li>
                 <li class="list-group-item">
                     <h5>Skills:</h5>
@@ -40,10 +40,19 @@
                     <h5>Description:</h5>
                     <p th:text="*{description}"></p>
                 </li>
+                <li class="list-group-item">
+                    <h5>Price: <span th:text="*{price}"></span></h5>
+                </li>
             </ul>
-            <div sec:authorize="isAuthenticated()" class="card-body">
-                <a class="btn btn-primary" role="button" th:href="@{/players/{playerId}/buy(playerId=${player.id})}">Buy</a>
-                <a sec:authorize="hasRole('ADMIN')" class="btn btn-primary" role="button" href="/">Delete</a>
+            <div sec:authorize="isAuthenticated()" class="card-body row">
+                <a class="btn btn-primary col-auto" role="button" th:href="@{/players/{playerId}/buy(playerId=${player.id})}">Buy</a>
+                <form
+                      th:if = "${#authentication.principal.username} == ${player.manager} or ${#authorization.expression('hasRole(''ADMIN'')')}"
+                        th:action="@{/players/{id}(id=*{id})}"
+                        th:method="delete"
+                        class="col-auto">
+                    <input class="btn btn-primary" type="submit" value="Delete">
+                </form>
             </div>
 
         </div>

@@ -23,11 +23,13 @@
                                 id="firstName"
                                 th:field="*{firstName}"
                                 th:errorclass="is-invalid"
+                                min="3"
+                                max="25"
                                 type="text"
                                 class="form-control"
                                 placeholder="First name"/>
                         <p class="invalid-feedback errors alert alert-danger">
-                            First name is required and should be between 5 and 25 symbols.
+                            First name is required and should be between 3 and 25 symbols.
                         </p>
                     </div>
                     <div class="form-group col-md-6 mb-4">
@@ -35,6 +37,8 @@
                         <input id="lastName"
                                th:field="*{lastName}"
                                th:errorclass="is-invalid"
+                               min="5"
+                               max="25"
                                type="text"
                                class="form-control"
                                placeholder="Last name"/>
@@ -123,7 +127,7 @@
     </div>
 </div>
 
-<footer th:include="fragments/footer">Footer</footer>
+<footer th:replace="fragments/footer">Footer</footer>
 
 </body>
 </html>

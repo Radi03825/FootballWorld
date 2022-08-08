@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:include="fragments/head">Head</head>
+
+<body>
+
+<div th:replace="fragments/navbar">Navbar</div>
+
+<div class="jumbotron">
+    <h1 class="text-center pt-5 text-dark font-weight-bold">Game Result</h1>
+    <h3 class="text-center pb-4 text-dark font-weight-bold">1 vs 1</h3>
+
+    <div th:object="${result}"
+         class="row m-2">
+        <div class="col-md-6">
+            <div class="card flex-md-row bg-blur mb-4 box-shadow h-md-250">
+                <div class="card-body d-flex flex-column align-items-start shadow-lg">
+                    <strong class="d-inline-block mb-2 text-primary">My player</strong>
+                    <span class="user-full-name"></span>
+                    <h3 th:if="*{myPlayer} == *{winner}" class="mb-0 text-dark">
+                        Winner
+                    </h3>
+                    <h3 th:if="*{winner} != null" th:unless="*{myPlayer} == *{winner}" class="mb-0 text-dark">
+                        Lost
+                    </h3>
+                    <div class="mb-1 text-dark">Selected from <a href="/players/my">my players</a>.</div>
+                    <select
+                            id="firstPlayer" class="form-select mt-5" aria-label="Default select example">
+                        <option value="" th:text="*{myPlayerFullName}" selected disabled></option>
+
+                    </select>
+                </div>
+                <img class="card-img-right flex-auto d-none d-md-block"
+                     style="width: 200px; height: 250px;"
+                     th:src="*{myPlayerImageUrl}"
+                     data-holder-rendered="true">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="bg-blur card flex-md-row mb-4 box-shadow h-md-250">
+                <div class="card-body d-flex flex-column align-items-start shadow-lg">
+                    <strong class="d-inline-block mb-2 text-danger">Opponent</strong>
+                    <span class="user-full-name"></span>
+                    <h3 th:if="*{winner} != null" th:unless="*{myPlayer} == *{winner}" class="mb-0 text-dark">
+                        Winner
+                    </h3>
+                    <h3 th:if="*{myPlayer} == *{winner}" class="mb-0 text-dark">
+                        Lost
+                    </h3>
+                    <div class="mb-1 text-dark">Selected from the three random given players.</div>
+                    <select
+                            class="form-select mt-5" aria-label="Default select example">
+                        <option value="" th:text="*{opponentFullName}" selected disabled></option>
+
+                    </select>
+
+                </div>
+                <img class="card-img-right flex-auto d-none d-md-block"
+                     th:src="*{opponentImageUrl}"
+                     data-holder-rendered="true" style="width: 200px; height: 250px;">
+            </div>
+        </div>
+
+        <h2 th:if="*{myPlayer} == *{winner}" th:text="|Winner: *{myPlayerFullName}|" class="text-center"></h2>
+        <h2 th:if="*{winner} != null" th:unless="*{myPlayer} == *{winner}" th:text="|Winner: *{opponentFullName}|" class="text-center"></h2>
+        <h2 th:if="*{winner} == null" class="text-center">Draw</h2>
+
+        <h3 th:text="|Score: *{myPlayerPoints}:*{opponentPoints}|" class="text-center"></h3>
+
+        <a href="/game" class="col-md-6 mx-auto btn btn-danger btn-lg btn-block mt-5 mb-5">Play again</a>
+    </div>
+
+</div>
+
+
+
+<footer th:replace="fragments/footer">Footer</footer>
+
+</body>
+</html>

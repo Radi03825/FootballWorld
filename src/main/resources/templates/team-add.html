@@ -10,12 +10,12 @@
     <div th:replace="fragments/navbar">Navbar</div>
 
 
-    <div class="container bg-dark">
-        <h2 class="text-center text-white">CREATE PLAYER</h2>
+    <div class="container bg-dark p-3 rounded">
+        <h2 class="text-center text-white">CREATE TEAM</h2>
         <form th:action="@{/teams/create}"
               th:method="post"
               th:object="${teamCreateDTO}"
-                class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
+              class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
 
             <h4 class="text-white">Team:</h4>
             <div class="row">
@@ -25,7 +25,7 @@
                     <input  th:field="*{name}"
                             th:errorclass="is-invalid"
                             id="name" type="text" min="3" max="25" class="form-control"
-                            placeholder="Team Name"/>
+                            placeholder="Team Name" required/>
                     <p class="invalid-feedback errors alert alert-danger">
                         Team name is required and should be between 3 and 25 symbols.
                     </p>
@@ -35,7 +35,7 @@
                     <input  th:field="*{established}"
                             th:errorclass="is-invalid"
                             id="established" type="date" class="form-control"
-                            placeholder="Established"/>
+                            placeholder="Established" required/>
                     <p class="invalid-feedback errors alert alert-danger">
                         Established is required and should be in the past or in the present.
                     </p>
@@ -54,7 +54,7 @@
                 </p>
             </div>
 
-            <h4 class="text-white">Stadium:</h4>
+            <h4 class="text-white mt-4">Stadium:</h4>
             <div class="row">
 
                 <div class="form-group col-md-6 mb-3">
@@ -62,7 +62,7 @@
                     <input  th:field="*{stadiumName}"
                             th:errorclass="is-invalid"
                             id="stadiumName" type="text" class="form-control"
-                            placeholder="Stadium Name"/>
+                            placeholder="Stadium Name" required/>
                     <p class="invalid-feedback errors alert alert-danger">
                         Stadium name is required and should be between 3 and 25 symbols.
                     </p>
@@ -72,7 +72,7 @@
                     <input  th:field="*{stadiumEstablished}"
                             th:errorclass="is-invalid"
                             id="stadiumEstablished" type="date" class="form-control"
-                            placeholder="Established"/>
+                            placeholder="Established" required/>
                     <p class="invalid-feedback errors alert alert-danger">
                         Established is required and should be in the past or in the present.
                     </p>
@@ -85,7 +85,7 @@
                     <input  th:field="*{capacity}"
                             th:errorclass="is-invalid"
                             id="capacity" type="number" class="form-control"
-                            placeholder="Capacity"/>
+                            placeholder="Capacity" required/>
                     <p class="invalid-feedback errors alert alert-danger">
                         Capacity is required and should be positive.
                     </p>
@@ -108,14 +108,14 @@
                 <input  th:field="*{stadiumImageUrl}"
                         th:errorclass="is-invalid"
                         id="stadiumImageUrl" type="url" class="form-control"
-                        placeholder="Image URL">
+                        placeholder="Image URL" required>
                 <p class="invalid-feedback errors alert alert-danger">
                     Image Url is required.
                 </p>
             </div>
 
             <div class="row">
-                <div class="col col-md-4">
+                <div class="col col-md-4 my-3">
                     <div class="button-holder d-flex">
                         <input type="submit" class="btn btn-info btn-lg" value="CREATE"/>
                     </div>
@@ -124,7 +124,7 @@
         </form>
     </div>
 
-    <footer th:include="fragments/footer">Footer</footer>
+    <footer th:replace="fragments/footer">Footer</footer>
 
 </body>
 </html>
