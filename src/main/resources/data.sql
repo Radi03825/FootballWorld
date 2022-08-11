@@ -1,6 +1,6 @@
 
 -- user roles
-INSERT INTO user_roles (id, `user_role`)
+INSERT INTO user_roles (id, user_role)
 VALUES (1, 'USER'),
        (2, 'MODERATOR'),
        (3, 'ADMIN');
@@ -13,22 +13,22 @@ VALUES (1, 'Admin', 'Adminov', 'admin@admin.com', 'Admin', '7dfefc5d78590bca06ff
 
 -- user roles:
 -- admin
-INSERT INTO users_user_roles (`user_entity_id`, `user_roles_id`)
+INSERT INTO users_user_roles (user_entity_id, user_roles_id)
 VALUES (1, 1),
        (1, 2),
        (1, 3);
 
 -- moderator
-INSERT INTO users_user_roles (`user_entity_id`, `user_roles_id`)
+INSERT INTO users_user_roles (user_entity_id, user_roles_id)
 VALUES (2, 1),
        (2, 2);
 
 -- user
-INSERT INTO users_user_roles (`user_entity_id`, `user_roles_id`)
+INSERT INTO users_user_roles (user_entity_id, user_roles_id)
 VALUES (3, 1);
 
 -- stadiums
-INSERT INTO stadiums (id, `address`, `capacity`, `established`, `image_url`, `name`)
+INSERT INTO stadiums (id, address, capacity, established, image_url, name)
 VALUES (1, 'ul. "Republikanska", 8130 Tsentar, Sozopol', '3500.00', '2012-06-14', 'https://www.krupal.bg/storage/app/media/Projects/Sozopol%20Stadium/sozopol-stadium-slide2.jpg', 'Arena Sozopol'),
        (2, 'ul. "Mitko Palauzov", 5300 Gabrovo", 8130 Tsentar, Sozopol', '5500.00', '1951-03-17', 'http://photos.wikimapia.org/p/00/05/20/65/98_big.jpg', 'Stadion Hristo Botev'),
        (3, 'Bistritsa, Sofia, Bulgaria", 8130 Tsentar, Sozopol', '2500.00', '2017-06-04', 'https://www.europlan-online.de/files/d4c24d28bc680378c1f794cbba0cc41d.jpeg', 'Stadion Bistritsa'),
@@ -39,7 +39,7 @@ VALUES (1, 'ul. "Republikanska", 8130 Tsentar, Sozopol', '3500.00', '2012-06-14'
        (8, '2000 Tsentar, Samokov', '7000.00', '1972-03-08', 'https://levskisofia.info/files/stadiums/188.jpg', 'Stadion Iskar');
 
 --teams
-INSERT INTO teams (id, `badge_image_url`, `established`, `name`, `stadium_id`)
+INSERT INTO teams (id, badge_image_url, established, name, stadium_id)
 VALUES (1, 'https://upload.wikimedia.org/wikipedia/en/thumb/3/3a/FCSozopol_logo.png/225px-FCSozopol_logo.png', '2008-06-03', 'FC Sozopol', '1'),
        (2, 'https://upload.wikimedia.org/wikipedia/en/3/33/FC_Yantra_Gabrovo.png', '1919-02-05', 'FC Yantra Gabrovo', '2'),
        (3, 'https://upload.wikimedia.org/wikipedia/en/thumb/2/23/FC_Vitosha_Bistritsa_emblem.png/180px-FC_Vitosha_Bistritsa_emblem.png', '1958-05-15', 'FC Vitosha Bistritsa', '3'),
@@ -65,7 +65,7 @@ VALUES (1, "https://res.cloudinary.com/dgntwkoji/image/upload/v1659962665/etaasv
        (12, "https://res.cloudinary.com/dgntwkoji/image/upload/v1660028558/yleva3aurpxna9b0vnbv.webp", "yleva3aurpxna9b0vnbv");
 
 --skills
-INSERT INTO skills (id, `defending`, `pace`, `passing`, `shooting`)
+INSERT INTO skills (id, defending, pace, passing, shooting)
 VALUES (1, '70', '73', '87', '71'),
        (2, '85', '75', '80', '21'),
        (3, '91', '53', '84', '31'),
@@ -80,7 +80,7 @@ VALUES (1, '70', '73', '87', '71'),
        (12, '50', '94', '74', '28');
 
 --players
-INSERT INTO players (id, `birthdate`, `description`, `first_name`, `height`, `image_id`, `last_name`, `position`, `preferred_foot`, `price`, `manager_id`, `skills_id`, `team_id`)
+INSERT INTO players (id, birthdate, description, first_name, height, image_id, last_name, position, preferred_foot, price, manager_id, skills_id, team_id)
 VALUES (1, '2002-06-30', 'Really good young midfielder.', 'Stefan', '186', '1', 'Petrov', 'MIDFIELDER', 'RIGHT', '1500.00', '1', '1', '1'),
        (2, '2001-04-10', 'Really good young forward.', 'Teodor', '174', '2', 'Georgiev', 'FORWARD', 'RIGHT', '3000.00', '1', '2', '3'),
        (3, '2004-07-27', 'Really good young defender.', 'Ilian', '193', '3', 'Manolov', 'GOALKEEPER', 'RIGHT', '5000.00', '1', '3', '4'),
