@@ -50,46 +50,46 @@ VALUES (1, 'https://upload.wikimedia.org/wikipedia/en/thumb/3/3a/FCSozopol_logo.
        (8, 'https://upload.wikimedia.org/wikipedia/en/6/6a/Rilski-sportist_small.png', '1947-10-10', 'FC Rilski Sportist Samokov', '8');
 
 --images
-INSERT INTO images (id, url, public_id)
-VALUES (1, "https://res.cloudinary.com/dgntwkoji/image/upload/v1659962665/etaasvpnphvtjya0ndpc.webp", "etaasvpnphvtjya0ndpc"),
-       (2, "https://res.cloudinary.com/dgntwkoji/image/upload/v1659963210/ob4rfh0iwsqooqpdepb5.webp", "ob4rfh0iwsqooqpdepb5"),
-       (3, "https://res.cloudinary.com/dgntwkoji/image/upload/v1660028529/phjpdqyipr4i7pqmrk62.webp", "phjpdqyipr4i7pqmrk62"),
-       (4, "https://res.cloudinary.com/dgntwkoji/image/upload/v1660027258/uszbmvoniiaxsl3nku4e.webp", "uszbmvoniiaxsl3nku4e"),
-       (5, "https://res.cloudinary.com/dgntwkoji/image/upload/v1660027361/p9ixx384oxhnyof8thq1.webp", "p9ixx384oxhnyof8thq1"),
-       (6, "https://res.cloudinary.com/dgntwkoji/image/upload/v1660027287/ezerjwforvcmik4wpmee.webp", "ezerjwforvcmik4wpmee"),
-       (7, "https://res.cloudinary.com/dgntwkoji/image/upload/v1660027339/o9h2yunq00iuf05ozfi3.webp", "o9h2yunq00iuf05ozfi3"),
-       (8, "https://res.cloudinary.com/dgntwkoji/image/upload/v1660027314/hwkay8xe8dq5bob2uczz.webp", "hwkay8xe8dq5bob2uczz"),
-       (9, "https://res.cloudinary.com/dgntwkoji/image/upload/v1659963395/kpqmbw6ftgzavf1afcaf.webp", "kpqmbw6ftgzavf1afcaf"),
-       (10, "https://res.cloudinary.com/dgntwkoji/image/upload/v1660028614/tcxasivi18ntbeq2ynuf.webp", "tcxasivi18ntbeq2ynuf"),
-       (11, "https://res.cloudinary.com/dgntwkoji/image/upload/v1660028636/n5o253um1clyggrfg0x8.webp", "n5o253um1clyggrfg0x8"),
-       (12, "https://res.cloudinary.com/dgntwkoji/image/upload/v1660028558/yleva3aurpxna9b0vnbv.webp", "yleva3aurpxna9b0vnbv");
-
---skills
-INSERT INTO skills (id, defending, pace, passing, shooting)
-VALUES (1, '70', '73', '87', '71'),
-       (2, '85', '75', '80', '21'),
-       (3, '91', '53', '84', '31'),
-       (4, '70', '63', '88', '50'),
-       (5, '76', '73', '84', '61'),
-       (6, '52', '75', '87', '55'),
-       (7, '81', '73', '94', '63'),
-       (8, '51', '83', '74', '68'),
-       (9, '91', '73', '77', '64'),
-       (10, '61', '97', '70', '38'),
-       (11, '90', '53', '84', '78'),
-       (12, '50', '94', '74', '28');
-
---players
-INSERT INTO players (id, birthdate, description, first_name, height, image_id, last_name, position, preferred_foot, price, manager_id, skills_id, team_id)
-VALUES (1, '2002-06-30', 'Really good young midfielder.', 'Stefan', '186', '1', 'Petrov', 'MIDFIELDER', 'RIGHT', '1500.00', '1', '1', '1'),
-       (2, '2001-04-10', 'Really good young forward.', 'Teodor', '174', '2', 'Georgiev', 'FORWARD', 'RIGHT', '3000.00', '1', '2', '3'),
-       (3, '2004-07-27', 'Really good young defender.', 'Ilian', '193', '3', 'Manolov', 'GOALKEEPER', 'RIGHT', '5000.00', '1', '3', '4'),
-       (4, '2002-07-04', 'Really good young defender.', 'Kalin', '191', '4', 'Stefanov', 'DEFENDER', 'RIGHT', '2500.00', '1', '4', '3'),
-       (5, '2003-02-24', 'Really good young defender.', 'Martin', '185', '5', 'Angelov', 'DEFENDER', 'RIGHT', '2000.00', '1', '5', '5'),
-       (6, '2001-04-14', 'Really good young defender.', 'Konstantin', '182', '6', 'Vladigerov', 'MIDFIELDER', 'LEFT', '1000.00', '1', '6', '2'),
-       (7, '1999-10-27', 'Really good young defender.', 'Darin', '177', '7', 'Petrov', 'FORWARD', 'RIGHT', '2500.00', '1', '7', '1'),
-       (8, '2000-01-20', 'Really good young defender.', 'Kaloqn', '193', '8', 'Davidov', 'MIDFIELDER', 'RIGHT', '5000.00', '1', '8', '4'),
-       (9, '2000-01-01', 'Really good young defender.', 'Steven', '196', '9', 'Ezze', 'DEFENDER', 'LEFT', '10000.00', '1', '9', '5'),
-       (10, '2002-09-10', 'Really good young defender.', 'Ivan', '193', '10', 'Pavlov', 'GOALKEEPER', 'RIGHT', '2000.00', '1', '10', '7'),
-       (11, '2001-04-28', 'Really good young defender.', 'David', '193', '11', 'Stefanov', 'FORWARD', 'RIGHT', '7000.00', '1', '11', '4'),
-       (12, '2003-11-20', 'Really good young defender.', 'Antoan', '193', '12', 'Paskalev', 'GOALKEEPER', 'RIGHT', '5000.00', '1', '12', '8');
+-- INSERT INTO images (id, url, public_id)
+-- VALUES (1, "https://res.cloudinary.com/dgntwkoji/image/upload/v1659962665/etaasvpnphvtjya0ndpc.webp", "etaasvpnphvtjya0ndpc"),
+--        (2, "https://res.cloudinary.com/dgntwkoji/image/upload/v1659963210/ob4rfh0iwsqooqpdepb5.webp", "ob4rfh0iwsqooqpdepb5"),
+--        (3, "https://res.cloudinary.com/dgntwkoji/image/upload/v1660028529/phjpdqyipr4i7pqmrk62.webp", "phjpdqyipr4i7pqmrk62"),
+--        (4, "https://res.cloudinary.com/dgntwkoji/image/upload/v1660027258/uszbmvoniiaxsl3nku4e.webp", "uszbmvoniiaxsl3nku4e"),
+--        (5, "https://res.cloudinary.com/dgntwkoji/image/upload/v1660027361/p9ixx384oxhnyof8thq1.webp", "p9ixx384oxhnyof8thq1"),
+--        (6, "https://res.cloudinary.com/dgntwkoji/image/upload/v1660027287/ezerjwforvcmik4wpmee.webp", "ezerjwforvcmik4wpmee"),
+--        (7, "https://res.cloudinary.com/dgntwkoji/image/upload/v1660027339/o9h2yunq00iuf05ozfi3.webp", "o9h2yunq00iuf05ozfi3"),
+--        (8, "https://res.cloudinary.com/dgntwkoji/image/upload/v1660027314/hwkay8xe8dq5bob2uczz.webp", "hwkay8xe8dq5bob2uczz"),
+--        (9, "https://res.cloudinary.com/dgntwkoji/image/upload/v1659963395/kpqmbw6ftgzavf1afcaf.webp", "kpqmbw6ftgzavf1afcaf"),
+--        (10, "https://res.cloudinary.com/dgntwkoji/image/upload/v1660028614/tcxasivi18ntbeq2ynuf.webp", "tcxasivi18ntbeq2ynuf"),
+--        (11, "https://res.cloudinary.com/dgntwkoji/image/upload/v1660028636/n5o253um1clyggrfg0x8.webp", "n5o253um1clyggrfg0x8"),
+--        (12, "https://res.cloudinary.com/dgntwkoji/image/upload/v1660028558/yleva3aurpxna9b0vnbv.webp", "yleva3aurpxna9b0vnbv");
+--
+-- --skills
+-- INSERT INTO skills (id, defending, pace, passing, shooting)
+-- VALUES (1, '70', '73', '87', '71'),
+--        (2, '85', '75', '80', '21'),
+--        (3, '91', '53', '84', '31'),
+--        (4, '70', '63', '88', '50'),
+--        (5, '76', '73', '84', '61'),
+--        (6, '52', '75', '87', '55'),
+--        (7, '81', '73', '94', '63'),
+--        (8, '51', '83', '74', '68'),
+--        (9, '91', '73', '77', '64'),
+--        (10, '61', '97', '70', '38'),
+--        (11, '90', '53', '84', '78'),
+--        (12, '50', '94', '74', '28');
+--
+-- --players
+-- INSERT INTO players (id, birthdate, description, first_name, height, image_id, last_name, position, preferred_foot, price, manager_id, skills_id, team_id)
+-- VALUES (1, '2002-06-30', 'Really good young midfielder.', 'Stefan', '186', '1', 'Petrov', 'MIDFIELDER', 'RIGHT', '1500.00', '1', '1', '1'),
+--        (2, '2001-04-10', 'Really good young forward.', 'Teodor', '174', '2', 'Georgiev', 'FORWARD', 'RIGHT', '3000.00', '1', '2', '3'),
+--        (3, '2004-07-27', 'Really good young defender.', 'Ilian', '193', '3', 'Manolov', 'GOALKEEPER', 'RIGHT', '5000.00', '1', '3', '4'),
+--        (4, '2002-07-04', 'Really good young defender.', 'Kalin', '191', '4', 'Stefanov', 'DEFENDER', 'RIGHT', '2500.00', '1', '4', '3'),
+--        (5, '2003-02-24', 'Really good young defender.', 'Martin', '185', '5', 'Angelov', 'DEFENDER', 'RIGHT', '2000.00', '1', '5', '5'),
+--        (6, '2001-04-14', 'Really good young defender.', 'Konstantin', '182', '6', 'Vladigerov', 'MIDFIELDER', 'LEFT', '1000.00', '1', '6', '2'),
+--        (7, '1999-10-27', 'Really good young defender.', 'Darin', '177', '7', 'Petrov', 'FORWARD', 'RIGHT', '2500.00', '1', '7', '1'),
+--        (8, '2000-01-20', 'Really good young defender.', 'Kaloqn', '193', '8', 'Davidov', 'MIDFIELDER', 'RIGHT', '5000.00', '1', '8', '4'),
+--        (9, '2000-01-01', 'Really good young defender.', 'Steven', '196', '9', 'Ezze', 'DEFENDER', 'LEFT', '10000.00', '1', '9', '5'),
+--        (10, '2002-09-10', 'Really good young defender.', 'Ivan', '193', '10', 'Pavlov', 'GOALKEEPER', 'RIGHT', '2000.00', '1', '10', '7'),
+--        (11, '2001-04-28', 'Really good young defender.', 'David', '193', '11', 'Stefanov', 'FORWARD', 'RIGHT', '7000.00', '1', '11', '4'),
+--        (12, '2003-11-20', 'Really good young defender.', 'Antoan', '193', '12', 'Paskalev', 'GOALKEEPER', 'RIGHT', '5000.00', '1', '12', '8');
