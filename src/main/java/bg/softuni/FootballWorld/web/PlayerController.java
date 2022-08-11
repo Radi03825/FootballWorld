@@ -67,7 +67,7 @@ public class PlayerController {
     }
 
     @GetMapping("/all")
-    public String showAll(Model model, @PageableDefault(page = 0, size = 1) Pageable pageable) {
+    public String showAll(Model model, @PageableDefault(page = 0, size = 4) Pageable pageable) {
         model.addAttribute("top3players", playersSchedule.getTop3players());
         model.addAttribute("position", playersSchedule.getPosition());
 

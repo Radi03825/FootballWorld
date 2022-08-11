@@ -84,8 +84,8 @@ public class GameService {
         gameResultDTO.setOpponentPoints(opponentPointsCount);
         gameResultDTO.setMyPlayerFullName(myPlayer.getFirstName() + " " + myPlayer.getLastName());
         gameResultDTO.setOpponentFullName(opponent.getFirstName() + " " + opponent.getLastName());
-//        gameResultDTO.setMyPlayerImageUrl(myPlayer.getImageUrl());
-//        gameResultDTO.setOpponentImageUrl(opponent.getImageUrl());
+        gameResultDTO.setMyPlayerImageUrl(myPlayer.getImage().getUrl());
+        gameResultDTO.setOpponentImageUrl(opponent.getImage().getUrl());
 
         return gameResultDTO;
     }

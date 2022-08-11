@@ -62,9 +62,6 @@ public class TeamService {
         }
 
         this.teamRepository.save(team);
-
-        //TODO - check if team exist... and stadium...
-        //Can choose one stadium or build new
     }
 
     public List<TeamView> getAllTeamsOrderAlphabetical() {

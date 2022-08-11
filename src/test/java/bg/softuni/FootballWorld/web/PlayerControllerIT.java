@@ -2,7 +2,9 @@ package bg.softuni.FootballWorld.web;
 
 import bg.softuni.FootballWorld.model.entity.*;
 import bg.softuni.FootballWorld.repository.PlayerRepository;
+import bg.softuni.FootballWorld.service.cloudinary.CloudinaryService;
 import bg.softuni.FootballWorld.util.TestDataUtils;
+import com.cloudinary.Cloudinary;
 import org.junit.jupiter.api.AfterEach;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -10,14 +12,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-
-import java.nio.file.Files;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -32,6 +33,9 @@ public class PlayerControllerIT {
 
     @Autowired
     private TestDataUtils testDataUtils;
+
+    @MockBean
+    private CloudinaryService cloudinaryService;
 
     private UserEntity testUser, testModerator, testAdmin;
 
@@ -72,53 +76,6 @@ public class PlayerControllerIT {
                 andExpect(status().isOk()).
                 andExpect(view().name("player-add"));
     }
-
-//    @Test
-//    @WithMockUser(username = "moderator@test.com", roles = {"USER", "MODERATOR"})
-//    void createPlayer() throws Exception {
-//        MockMultipartFile file = new MockMultipartFile("file", "test".getBytes());
-//
-//        mockMvc.perform(MockMvcRequestBuilders.post("/players/create").
-//                        param("firstName", "Test").
-//                        param("lastName", "Testov").
-//                        param("position", "DEFENDER").
-//                        param("birthdate", "2000-10-03").
-//                        param("team", "Team").
-//                        param("price", "1234.00").
-//                        param("description", "This is a test.").
-//                        param("image", "file").
-//                        param("preferredFoot", "LEFT").
-//                        param("height", "188").
-//                        param("pace", "78").
-//                        param("shoot", "76").
-//                        param("pass", "66").
-//                        param("defence", "80").
-//                        with(csrf())).
-//                andExpect(status().is3xxRedirection())
-//                .andExpect(redirectedUrl("/players/all"));
-//    }
-//
-//    @Test
-//    @WithMockUser(username = "admin@test.com", roles = {"USER", "MODERATOR", "ADMIN"})
-//    void testDeleteByAdmin() throws Exception {
-//        mockMvc.perform(delete("/players/{id}", testPlayer.getId()).
-//                        with(csrf())
-//                ).
-//                andExpect(status().is3xxRedirection()).
-//                andExpect(view().name("redirect:/players/all"));
-//    }
-//
-//    @WithMockUser(username = "user@test.com", roles = "USER")
-//    @Test
-//    void testDeleteByOwner() throws Exception {
-//        mockMvc.perform(delete("/players/{id}", testPlayer.getId()).
-//                        with(csrf())
-//                ).
-//                andExpect(status().is3xxRedirection()).
-//                andExpect(view().name("redirect:/players/all"));
-//    }
-
-    //TODO
 
     @WithMockUser(username = "user@test.com", roles = "USER")
     @Test

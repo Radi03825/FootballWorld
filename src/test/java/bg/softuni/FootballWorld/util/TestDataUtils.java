@@ -110,7 +110,7 @@ public class TestDataUtils {
         player.setManager(user);
         player.setTeam(team);
         player.setSkills(skills);
-        player.setImage(createTestImage());
+        player.setImage(createTestImage(user.getUsername()));
 
         return playerRepository.save(player);
     }
@@ -149,11 +149,11 @@ public class TestDataUtils {
         return skillsRepository.save(skills);
     }
 
-    public ImageEntity createTestImage() {
+    public ImageEntity createTestImage(String username) {
         ImageEntity image = new ImageEntity();
 
-        image.setUrl("url");
-        image.setPublicId("public_id");
+        image.setUrl(username);
+        image.setPublicId(username);
 
         return imageRepository.save(image);
     }

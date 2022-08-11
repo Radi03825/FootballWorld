@@ -29,6 +29,12 @@ public class PlayerSpecification implements Specification<PlayerEntity> {
             );
         }
 
+        if (searchPlayerDTO.getLastName() != null && !searchPlayerDTO.getLastName().isEmpty()) {
+            p.getExpressions().add(
+                    criteriaBuilder.and(criteriaBuilder.equal(root.get("lastName"), searchPlayerDTO.getLastName()))
+            );
+        }
+
         if (searchPlayerDTO.getMinPrice() != null) {
             p.getExpressions().add(
                     criteriaBuilder.and(criteriaBuilder.greaterThanOrEqualTo(root.get("price"), searchPlayerDTO.getMinPrice()))

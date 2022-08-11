@@ -4,6 +4,8 @@ public class SearchPlayerDTO {
 
     private String firstName;
 
+    private String lastName;
+
     private Integer minPrice;
 
     private Integer maxPrice;
@@ -14,6 +16,14 @@ public class SearchPlayerDTO {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public Integer getMinPrice() {
@@ -34,6 +44,7 @@ public class SearchPlayerDTO {
 
     public boolean isEmpty() {
         return (firstName == null || firstName.isEmpty()) &&
+                (lastName == null || lastName.isEmpty()) &&
                 minPrice == null &&
                 maxPrice == null;
     }
