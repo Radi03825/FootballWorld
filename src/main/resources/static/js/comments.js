@@ -15,7 +15,7 @@ async function handleFormSubmission(event) {
 
     if (messageVal.trim() !== '') {
 
-        fetch(`http://localhost:8080/api/${playerId}/comments`, {
+        fetch(`https://footballlworld.herokuapp.com//api/${playerId}/comments`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -48,7 +48,7 @@ function commentAsHtml(comment) {
     return commentHtml
 }
 
-fetch(`http://localhost:8080/api/${playerId}/comments`, {
+fetch(`https://footballlworld.herokuapp.com//api/${playerId}/comments`, {
     headers: {
         "Accept": "application/json"
     }
