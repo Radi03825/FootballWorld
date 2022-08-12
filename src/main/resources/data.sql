@@ -51,7 +51,7 @@ VALUES (1, 'https://upload.wikimedia.org/wikipedia/en/thumb/3/3a/FCSozopol_logo.
 
 --images
 INSERT INTO images (id, url, public_id)
-VALUES (1, 'https://res.cloudinary.com/dgntwkoji/image/upload/v1659962665/etaasvpnphvtjya0ndpc.webp', 'etaasvpnphvtjya0ndpc'),
+VALUES (1, 'https://res.cloudinary.com/dgntwkoji/image/upload/v1659963148/xkaxet6uksit0ct4tkhv.webp', 'xkaxet6uksit0ct4tkhv'),
        (2, 'https://res.cloudinary.com/dgntwkoji/image/upload/v1659963210/ob4rfh0iwsqooqpdepb5.webp', 'ob4rfh0iwsqooqpdepb5'),
        (3, 'https://res.cloudinary.com/dgntwkoji/image/upload/v1660028529/phjpdqyipr4i7pqmrk62.webp', 'phjpdqyipr4i7pqmrk62'),
        (4, 'https://res.cloudinary.com/dgntwkoji/image/upload/v1660027258/uszbmvoniiaxsl3nku4e.webp', 'uszbmvoniiaxsl3nku4e'),

@@ -4,7 +4,6 @@ import bg.softuni.FootballWorld.model.dto.PlayerCreateDTO;
 import bg.softuni.FootballWorld.model.dto.SearchPlayerDTO;
 import bg.softuni.FootballWorld.model.entity.*;
 import bg.softuni.FootballWorld.model.entity.enums.PositionEnum;
-import bg.softuni.FootballWorld.model.entity.enums.PreferredFootEnum;
 import bg.softuni.FootballWorld.model.entity.enums.UserRoleEnum;
 import bg.softuni.FootballWorld.model.view.PlayerDetailsView;
 import bg.softuni.FootballWorld.model.view.PlayerView;
@@ -18,7 +17,6 @@ import org.springframework.data.domain.*;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Period;
