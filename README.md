@@ -4,7 +4,7 @@ In progress...
 
 :dart:  My project for the Spring Advanced course at SoftUni.
 
-https://safe-tundra-06206.herokuapp.com/
+https://footballlworld.herokuapp.com/
 
 Test Accounts:
   - User: user@user.com / password: 123456
